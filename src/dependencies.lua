@@ -9,13 +9,7 @@ require 'src/LevelCreator'
 -- graphics
 textures={
     ['background']=love.graphics.newImage('graphics/background.png'),
-    ['hero']= {
-        [1] = love.graphics.newImage('graphics/hero1.png'),
-        [2] = love.graphics.newImage('graphics/hero2.png'),
-        [3] = love.graphics.newImage('graphics/hero3.png'),
-        [4] = love.graphics.newImage('graphics/hero4.png'),
-        [5] = love.graphics.newImage('graphics/hero5.png')
-    },
+    ['hero'] = love.graphics.newImage('graphics/hero.png'),
     ['tiles']=love.graphics.newImage('graphics/environment.png')
 }
 
@@ -25,10 +19,18 @@ quads={
     ['spikes']      = love.graphics.newQuad(80, 0, 40, 40, textures['tiles'] ),
     ['bloodySpikes']= love.graphics.newQuad(120, 0, 40, 40, textures['tiles'] ),
     ['?']           = love.graphics.newQuad(160, 0, 40, 40, textures['tiles'] ),
-    ['breakBlock1'] = love.graphics.newQuad( 0, 200, 40, 40, textures['tiles'] ),
-    ['breakBlock2'] = love.graphics.newQuad( 0, 240, 40, 40, textures['tiles'] ),
-    ['breakBlock3'] = love.graphics.newQuad( 0, 280, 40, 40, textures['tiles'] ),
-    ['heart']       = love.graphics.newQuad( 0, 320, 40, 40, textures['tiles'] ),
-    ['halfHeart']   = love.graphics.newQuad( 0, 360, 40, 40, textures['tiles'] ),
-    ['goldRing']    = love.graphics.newQuad( 0, 400, 40, 40, textures['tiles'] )
+    ['breakBlock1'] = love.graphics.newQuad(200, 0, 40, 40, textures['tiles'] ),
+    ['breakBlock2'] = love.graphics.newQuad(240, 0, 40, 40, textures['tiles'] ),
+    ['breakBlock3'] = love.graphics.newQuad(280, 0, 40, 40, textures['tiles'] ),
+    ['heart']       = love.graphics.newQuad(320, 0, 40, 40, textures['tiles'] ),
+    ['halfHeart']   = love.graphics.newQuad(360, 0, 40, 40, textures['tiles'] ),
+    ['goldRing']    = love.graphics.newQuad(400, 0, 40, 40, textures['tiles'] )
+}
+
+heroQuads={
+    [1] = love.graphics.newQuad( 0, 0, 268, 257, textures['hero']),
+    [2] = love.graphics.newQuad(268, 0, 268, 257, textures['hero']),
+    [3] = love.graphics.newQuad(536, 0, 268, 257, textures['hero']),
+    [4] = love.graphics.newQuad(804, 0, 268, 257, textures['hero']),
+    [5] = love.graphics.newQuad(1072, 0, 260, 257, textures['hero'])
 }

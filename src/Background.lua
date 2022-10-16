@@ -6,12 +6,7 @@ function Background:init()
 end
 
 function Background:update(dt)
-    if love.keyboard.isDown('right') then
-        self.x = (self.x - (BACKGROUND_SCROLL_SPEED * dt)) % 1276
-    end
-    if love.keyboard.isDown('left') then
-        self.x = (self.x + (BACKGROUND_SCROLL_SPEED * dt)) % 1276
-    end
+    self.x = -((hero.x/HERO_SPEED) * BACKGROUND_SCROLL_SPEED) % 1276
 end
 
 function Background:render()
