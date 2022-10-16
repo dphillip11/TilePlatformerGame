@@ -5,12 +5,15 @@ require 'src/constants'
 require 'src/Hero'
 require 'src/Background'
 require 'src/LevelCreator'
+require 'src/Tile'
 
 -- graphics
 textures={
     ['background']=love.graphics.newImage('graphics/background.png'),
     ['hero'] = love.graphics.newImage('graphics/hero.png'),
-    ['tiles']=love.graphics.newImage('graphics/environment.png')
+    ['tiles']=love.graphics.newImage('graphics/environment.png'),
+    ['jungle'] = love.graphics.newImage('graphics/jungle.png'),
+    ['dogDig1'] = love.graphics.newImage('graphics/dogDig2.png')
 }
 
 quads={

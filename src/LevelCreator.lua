@@ -16,29 +16,29 @@ function LevelCreator:init(columns)
             if x > 14 then
                 if y == 7 then
                     if math.random(0,5) > 1 then
-                        table.insert(self.grid[x], quads['?'])
-                    else
                         table.insert(self.grid[x], '0')
+                    else
+                        table.insert(self.grid[x], Tile(x,y,'?'))
                     end
                 end
                 if y < 14 and y ~= 7 then
                     table.insert(self.grid[x], '0')
                 end
                 if y == 14 then
-                    table.insert(self.grid[x], quads['topper'])
+                    table.insert(self.grid[x], Tile(x,y,'topper'))
                 end
                 if y > 14 then
-                    table.insert(self.grid[x], quads['tile'])
+                    table.insert(self.grid[x], Tile(x,y,'tile'))
                 end
             else
-                table.insert(self.grid[x], quads['tile'])
+                table.insert(self.grid[x], Tile(x,y,'tile'))
             end
             
         end
     end
     for n = 1, self.columns do
         if math.random(1,10) == 1 then
-            self.grid[n][13] = quads['spikes']
+            self.grid[n][13] = Tile(n,13,'spikes')
         end
     end
 end
@@ -48,20 +48,23 @@ function LevelCreator:render()
     for j = 1, 18 do
         for i = 1, self.columns do
             if self.grid[i][j] ~= '0' then
-                love.graphics.draw(textures['tiles'], self.grid[i][j], (i-1) * 40 - hero.x, (j-1) * 40 - math.min(hero.y,0))
+                love.graphics.draw(textures['tiles'], self.grid[i][j].quad, (i-1) * 40 - hero.x + HERO_OFFSET, (j-1) * 40 - math.min(hero.y,0))
             end
         end
     end
+    love.graphics.print(self.grid[1][1].x, 0, 100)
 end
 
 function LevelCreator:collision(object)
-    -- define a quad of tiles by the top left and bottom right corner
-    indexX1 = (object.x/40) + 1
-    indexY1 = (object.y/40) + 1
-    indexX2 = ((object.x + object.width)/40) + 1
-    indexY2 = ((object.y + object.height)/40) + 1
-    if self.grid[math.floor(indexX1)][math.floor(indexY2)] ~= '0' or self.grid[math.floor(indexX2)][math.floor(indexY2)] ~= '0' or self.grid[math.floor(indexX1)][math.ceil(indexY1)] ~= '0' or self.grid[math.floor(indexX2)][math.ceil(indexY1)] ~= '0' then
-        return 'up'
+    -- define an index for the object and then check local tiles for collisions
+    indexX1 = math.floor(object.x/40) + 1
+    indexY1 = math.floor(object.y/40) + 1
+    for x = math.max(1,indexX1-2), math.min(indexX1 + 2, self.columns) do
+        for y = math.max(1,indexY1-2), math.min(indexY1 + 2, 18) do
+            if self.grid[x][y]~='0' and self.grid[x][y]:collision(object) then
+                return true
+            end
+        end
     end
 end
 
