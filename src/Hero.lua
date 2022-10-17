@@ -3,74 +3,87 @@ Hero = Class{}
 function Hero:init()
     self.y=0
     _,_,self.qWidth, self.qHeight = heroQuads[1]:getViewport( )
-    self.scale = 0.3
+    self.scale = HERO_SCALE
     self.height = self.qHeight * self.scale
     self.width = self.qWidth * self.scale
     self.x=(VIEWPORT_WIDTH / 2) - (self.width /2)
-    self.dx=HERO_SPEED
+    self.dx=0
     self.dy=0
     self.timer=0
     self.animationInterval = 1 / ANIMATION_SPEED
     self.skin=1
     -- compass direction, north oriented upwards
-    self.direction='E'
+    self.directionY = 'S'
+    self.directionX = 'E'
     HERO_OFFSET = (VIEWPORT_WIDTH / 2) - (self.width /2)
+    SCROLL_X = (VIEWPORT_WIDTH / 2) - (self.width /2)
       
 end
 
 function Hero:update(dt)
-    
+    --update animation timer
     self.timer = self.timer + dt
 
-    self.dy = self.dy + (GRAVITY*dt)
-    if self.dy > 0 then
-        self.direction = 'S'
-    end
+    self.dx = 0
 
-    if self.dy > 0 and level:collision(self) then
-        -- self.y = self.y - (self.dy*dt)
-        self.dy = 0
-        self.direction = 'S'
-    end
-    if self.direction == 'N' and level:collision(self) then
-        self.direction = 'S'
-        self.y = self.y - (self.dy*dt)
-        self.dy = 0
-    end
-    
-    if love.keyboard.wasPressed('up') and self.dy == 0 then
-        self.dy = -1500
-        self.direction = 'N'
-    end  
-    
-    self.y = self.y + (self.dy*dt)/2
-    
-    if love.keyboard.wasPressed('right') then
-        self.direction = 'E'
-        self.x = self.x + (self.dx * dt)
-        if self.timer > self.animationInterval then
-            self.skin = (self.skin % 5) + 1
-            self.timer=0
-        end
+    -- collect keyboard input
+    if love.keyboard.wasPressed('up') then
+        self.dy = -HERO_JUMP
     end
     if love.keyboard.wasPressed('left') then
-        self.direction = 'W'
-        self.x = self.x - (self.dx * dt)
+        self.dx = -HERO_SPEED
+        self.directionX = 'W'
         if self.timer > self.animationInterval then
-            self.skin = (self.skin % 5) + 1
+            self.skin = (self.skin % 6) + 1
             self.timer=0
         end
     end
+    if love.keyboard.wasPressed('right') then
+        self.dx = HERO_SPEED
+        self.directionX = 'E'
+        if self.timer > self.animationInterval then
+            self.skin = (self.skin % 6) + 1
+            self.timer=0
+        end
+    end
+    -- try move y
+    self.y = self.y + (self.dy * dt)
+    -- if collide then unmove, cancel speed
+    -- set direction to determine collision response
+    if self.dy > 0 then
+        self.directionY = 'S'
+    else
+        self.directionY = 'N'
+    end
+    if level:collision(self) then
+        self.y = self.y - (self.dy * dt)
+        self.dy = 0
+    end
+    --try x move
+    self.x = self.x + (self.dx * dt)
+    --if collide, unmove, reset speed
+    if level:collision(self) then
+        self.x = self.x - (self.dx * dt)
+        self.dx = 0
+    end
+     --check for ground
+     self.y = self.y + (GRAVITY * dt)
+     -- if collide then unmove, cancel speed
+     self.directionY = 'S'
+     if level:collision(self) then
+         self.y = self.y - (GRAVITY * dt)
+         self.dy = 0
+     else
+        self.dy = self.dy + GRAVITY
+     end
+
     SCROLL_X = (VIEWPORT_WIDTH / 2) - (self.width /2) - self.x
 end
 
 function Hero:render()
-    if self.direction == 'W' then
+    if self.directionX == 'W' then
         love.graphics.draw(textures['hero'], heroQuads[self.skin], self.x + SCROLL_X, self.y, 0, self.scale, self.scale)
     else 
         love.graphics.draw(textures['hero'], heroQuads[self.skin], self.x + self.width + SCROLL_X, self.y, 0, -self.scale, self.scale)
-    -- else
-    --     love.graphics.draw(textures['dogDig1'], self.x + self.width + SCROLL_X, self.y, 0, -self.scale, self.scale)
     end
-    love.graphics.print(self.direction)
 end

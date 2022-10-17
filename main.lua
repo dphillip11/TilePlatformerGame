@@ -1,43 +1,46 @@
 require 'src/dependencies'
 
 function love.load()
+    math.randomseed(love.timer.getTime())
+
+    -- screen setup
     love.window.setMode(1280, 720, {resizable=False})
-    hero = Hero()
-    background = Background{}
+    love.window.setTitle('The Adventures of Portos')
+
+    -- keylogger
     love.keyboard.keysPressed = {}
-    level=LevelCreator(300)
+
+    -- states
+    gameState = StateMachine({
+        ['title'] = TitleState(),
+        ['play'] = PlayState()
+    })
+    gameState:change('title')
 end
 
 
 function love.update(dt)
-    hero:update(dt)
-    background:update(dt)
-    love.keyboard.keysPressed = {}
-    -- update kyspressed, some bug meant asynchronous button presses were failing, logging down buttons seemed to fix it
     if love.keyboard.isDown('left') then
         love.keyboard.keysPressed['left'] = true
     end
     if love.keyboard.isDown('right') then
         love.keyboard.keysPressed['right'] = true
     end
-    
+    gameState:update(dt)
+    love.keyboard.keysPressed = {}
 end
 
 
 function love.draw()
-    background:render()
-    level:render()
-    hero:render()
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+    gameState:render()
 end
 
 
 function love.keypressed(key)
-    if key == 'return'then 
+    if key == 'escape'then 
         love.event.quit()
     end
     love.keyboard.keysPressed[key] = true
-
 end
 
 function love.keyboard.wasPressed(key)

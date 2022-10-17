@@ -63,7 +63,7 @@ function LevelCreator:collision(object)
     indexX1 = math.floor(object.x/40) + 1
     indexY1 = math.floor(object.y/40) + 1
     for x = math.max(1,indexX1-2), math.min(indexX1 + 2, self.columns) do
-        for y = math.max(1,indexY1-2), math.min(indexY1 + 2, 18) do
+        for y = math.max(1,indexY1-2), math.min(indexY1 + 4, 18) do
             if self.grid[x][y]~='0' and self.grid[x][y]:collision(object) then
                 return true
             end
