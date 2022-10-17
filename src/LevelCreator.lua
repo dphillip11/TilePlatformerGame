@@ -18,7 +18,11 @@ function LevelCreator:init(columns)
                     if math.random(0,5) > 1 then
                         table.insert(self.grid[x], '0')
                     else
-                        table.insert(self.grid[x], Tile(x,y,'?'))
+                        if math.random(0,1)==0 then
+                            table.insert(self.grid[x], Tile(x,y,'?'))
+                        else
+                            table.insert(self.grid[x], Tile(x,y,'breakBlock1'))
+                        end
                     end
                 end
                 if y < 14 and y ~= 7 then
@@ -48,11 +52,10 @@ function LevelCreator:render()
     for j = 1, 18 do
         for i = 1, self.columns do
             if self.grid[i][j] ~= '0' then
-                love.graphics.draw(textures['tiles'], self.grid[i][j].quad, (i-1) * 40 - hero.x + HERO_OFFSET, (j-1) * 40 - math.min(hero.y,0))
+                self.grid[i][j]:render()
             end
         end
     end
-    love.graphics.print(self.grid[1][1].x, 0, 100)
 end
 
 function LevelCreator:collision(object)

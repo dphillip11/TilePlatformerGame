@@ -23,15 +23,24 @@ function Hero:update(dt)
     self.timer = self.timer + dt
 
     self.dy = self.dy + (GRAVITY*dt)
+    if self.dy > 0 then
+        self.direction = 'S'
+    end
 
     if self.dy > 0 and level:collision(self) then
-        -- self.y = self.y - self.dy
+        -- self.y = self.y - (self.dy*dt)
         self.dy = 0
-        self.direction = nil
+        self.direction = 'S'
+    end
+    if self.direction == 'N' and level:collision(self) then
+        self.direction = 'S'
+        self.y = self.y - (self.dy*dt)
+        self.dy = 0
     end
     
     if love.keyboard.wasPressed('up') and self.dy == 0 then
-        self.dy = -1000
+        self.dy = -1500
+        self.direction = 'N'
     end  
     
     self.y = self.y + (self.dy*dt)/2
@@ -63,4 +72,5 @@ function Hero:render()
     -- else
     --     love.graphics.draw(textures['dogDig1'], self.x + self.width + SCROLL_X, self.y, 0, -self.scale, self.scale)
     end
+    love.graphics.print(self.direction)
 end
