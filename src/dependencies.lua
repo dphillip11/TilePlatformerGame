@@ -9,6 +9,7 @@ require 'src/Tile'
 require 'lib/BaseState'
 require 'lib/StateMachine'
 require 'lib/Glide'
+require 'lib/entity'
 
 -- states
 require 'src/states/TitleState'

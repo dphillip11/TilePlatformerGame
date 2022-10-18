@@ -13,10 +13,11 @@ function Background:update(dt)
 end
 
 function Background:render()
+    -- images joined end to end, piecewise using quads would be more efficient, minimally 3 but more for less rendered outside of screenspace
     love.graphics.draw(textures['background'], self.x, self.y)
     love.graphics.draw(textures['background'], self.x - 1276, self.y)
     love.graphics.draw(textures['background'], self.x + 1276, self.y)
-    love.graphics.draw(textures['jungle'], self.jungleX, self.jungleY)
-    love.graphics.draw(textures['jungle'], self.jungleX - 2100, self.jungleY)
-    love.graphics.draw(textures['jungle'], self.jungleX + 2100, self.jungleY)
+    love.graphics.draw(textures['jungle'], self.jungleX, self.jungleY + SCROLL_Y/3)
+    love.graphics.draw(textures['jungle'], self.jungleX - 2100, self.jungleY + SCROLL_Y/3)
+    love.graphics.draw(textures['jungle'], self.jungleX + 2100, self.jungleY + SCROLL_Y/3)
 end

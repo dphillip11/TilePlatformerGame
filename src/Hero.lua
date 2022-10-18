@@ -17,6 +17,7 @@ function Hero:init()
     self.directionX = 'E'
     HERO_OFFSET = (VIEWPORT_WIDTH / 2) - (self.width /2)
     SCROLL_X = (VIEWPORT_WIDTH / 2) - (self.width /2)
+    SCROLL_Y = (VIEWPORT_HEIGHT / 2) - (self.height /2)
       
 end
 
@@ -78,12 +79,13 @@ function Hero:update(dt)
      end
 
     SCROLL_X = (VIEWPORT_WIDTH / 2) - (self.width /2) - self.x
+    SCROLL_Y = math.max(0,(VIEWPORT_HEIGHT / 2) - (self.height /2) - self.y)
 end
 
 function Hero:render()
     if self.directionX == 'W' then
-        love.graphics.draw(textures['hero'], heroQuads[self.skin], self.x + SCROLL_X, self.y, 0, self.scale, self.scale)
+        love.graphics.draw(textures['hero'], heroQuads[self.skin], self.x + SCROLL_X, self.y + SCROLL_Y, 0, self.scale, self.scale)
     else 
-        love.graphics.draw(textures['hero'], heroQuads[self.skin], self.x + self.width + SCROLL_X, self.y, 0, -self.scale, self.scale)
+        love.graphics.draw(textures['hero'], heroQuads[self.skin], self.x + self.width + SCROLL_X, self.y + SCROLL_Y, 0, -self.scale, self.scale)
     end
 end
