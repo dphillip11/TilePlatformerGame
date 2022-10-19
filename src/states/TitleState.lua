@@ -68,7 +68,7 @@ function TitleState:render()
     end
     -- draw animation
     love.graphics.setColor(1,1,1)
-    love.graphics.draw(textures['hero'], heroQuads[self.frame], self.x + (self.direction==-1 and 250 or 0), self.y,0,self.direction,1)
+    love.graphics.draw(textures['hero'], heroQuads[(self.frame % 5)+1], self.x + (self.direction==-1 and 250 or 0), self.y,0,self.direction,1)
 
     -- draw flowers
     love.graphics.draw(textures['flowers'][self.frame], 0, 0, 0, 1280/textures['flowers'][self.frame]:getWidth(), 720/textures['flowers'][self.frame]:getHeight())

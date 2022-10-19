@@ -51,11 +51,11 @@ function Tile:render()
         end
     end
 
-    if self.x - hero.x + HERO_OFFSET > -50 and self.x - hero.x + HERO_OFFSET < VIEWPORT_WIDTH then
+    if self.x > -50 and self.x < VIEWPORT_WIDTH then
         if self.active == 0 then
             love.graphics.setColor(0.5,0.5,0.5)
         end
-        love.graphics.draw(textures['tiles'], quads[self.type], self.x - hero.x + HERO_OFFSET, self.y + SCROLL_Y)
+        love.graphics.draw(textures['tiles'], quads[self.type], self.x, self.y)
         love.graphics.setColor(1,1,1)
     end
 end

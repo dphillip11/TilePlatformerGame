@@ -6,19 +6,42 @@ require 'src/Hero'
 require 'src/Background'
 require 'src/LevelCreator'
 require 'src/Tile'
-require 'lib/BaseState'
 require 'lib/StateMachine'
-require 'lib/Glide'
-require 'lib/entity'
+require 'src/PlayerHealth'
+
+-- components
+require 'components/Glide'
+require 'components/Entity'
+require 'components/BaseState'
+require 'components/Animation'
+require 'components/HeroInput'
 
 -- states
 require 'src/states/TitleState'
 require 'src/states/PlayState'
 
+-- entityStates
+require 'src/states/entityStates/FallingState'
+require 'src/states/entityStates/JumpingState'
+require 'src/states/entityStates/WalkingState'
+require 'src/states/entityStates/IdleState'
+
 -- graphics
 textures={
-    ['background']=love.graphics.newImage('graphics/background.png'),
+    ['background'] = {
+        ['jungle'] = love.graphics.newImage('graphics/jungleworldbackground.png'),
+        ['mountains'] = love.graphics.newImage('graphics/background.png')
+    },
+    ['midground'] = {
+        ['jungle']={
+            [1]=love.graphics.newImage('graphics/junglebackground1.png'),
+            [2]=love.graphics.newImage('graphics/junglebackground2.png'),
+            [3]=love.graphics.newImage('graphics/junglebackground3.png')
+        }
+    },
+    ['grass'] = love.graphics.newImage('graphics/jungleground.png'),
     ['hero'] = love.graphics.newImage('graphics/hero.png'),
+    ['hedgehog'] = love.graphics.newImage('graphics/hedgehog.png'),
     ['tiles']=love.graphics.newImage('graphics/environment.png'),
     ['jungle'] = love.graphics.newImage('graphics/jungle.png'),
     ['dogDig1'] = love.graphics.newImage('graphics/dogDig2.png'),
@@ -36,7 +59,8 @@ textures={
 
 -- fonts
 fonts = {
-    ['thin'] = love.graphics.newFont('fonts/thin.ttf', 100)
+    ['thin'] = love.graphics.newFont('fonts/thin.ttf', 100),
+    ['small'] = love.graphics.newFont('fonts/arial.ttf', 30)
 }
 
 quads={
@@ -56,10 +80,14 @@ quads={
 heroQuads={
     [1] = love.graphics.newQuad( 0, 0, 268, 257, textures['hero']),
     [2] = love.graphics.newQuad(268, 0, 268, 257, textures['hero']),
-    [3] = love.graphics.newQuad(1072, 0, 260, 257, textures['hero']),
-    [4] = love.graphics.newQuad(536, 0, 268, 257, textures['hero']),
-    [5] = love.graphics.newQuad(804, 0, 268, 257, textures['hero']),
-    [6] = love.graphics.newQuad(1072, 0, 260, 257, textures['hero']),
-    [7] = love.graphics.newQuad( 0, 0, 268, 257, textures['hero']),
-    [8] = love.graphics.newQuad(268, 0, 268, 257, textures['hero'])   
+    [3] = love.graphics.newQuad(536, 0, 268, 257, textures['hero']),
+    [4] = love.graphics.newQuad(804, 0, 268, 257, textures['hero']),
+    [5] = love.graphics.newQuad(1072, 0, 260, 257, textures['hero']) 
+}
+
+hedgehogQuads={
+    [1] = love.graphics.newQuad( 0, 0, 514, 500, textures['hedgehog']),
+    [2] = love.graphics.newQuad(514, 0, 514, 500, textures['hedgehog']),
+    [3] = love.graphics.newQuad(1028, 0, 514, 500, textures['hedgehog']),
+    [4] = love.graphics.newQuad(1542, 0, 514, 500, textures['hedgehog'])
 }
