@@ -13,6 +13,7 @@ end
 
 
 function PlayState:update(dt)
+    level:update(dt)
     hero:update(dt)
     background:update(dt)
     -- level:update(dt)

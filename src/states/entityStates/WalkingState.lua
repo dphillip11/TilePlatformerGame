@@ -20,3 +20,7 @@ function WalkingState:update(dt)
         self.object.state:change('idle')
     end
 end
+
+function WalkingState:render()
+    love.graphics.print('W')
+end
