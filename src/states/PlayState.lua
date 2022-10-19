@@ -3,7 +3,6 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
     SCROLL_X = 0
     SCROLL_Y = 0
-    HERO_OFFSET = 0
 
     background = Background{}
     level=LevelCreator(300, 18)
@@ -17,15 +16,17 @@ function PlayState:update(dt)
     hero:update(dt)
     background:update(dt)
     -- level:update(dt)
-    SCROLL_X = (VIEWPORT_WIDTH / 2) - (hero.width /2) - hero.x
-    SCROLL_Y = math.max(0,(VIEWPORT_HEIGHT / 2) - (hero.height /2) - hero.y)
+    SCROLL_X = math.max(0,hero.x - (VIEWPORT_WIDTH / 2) + (hero.width/2))
+    SCROLL_Y = math.min(0,hero.y - (VIEWPORT_HEIGHT / 2) + (hero.height/2))
 end
 
 
 function PlayState:render()
     background:render()
+    healthbar:render()
+    love.graphics.translate(-math.floor(SCROLL_X), -math.floor(SCROLL_Y))
     level:render()
     hero:render()
-    healthbar:render()
+    
 end
 

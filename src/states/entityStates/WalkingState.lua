@@ -7,7 +7,6 @@ function WalkingState:init(def)
 end
 
 function WalkingState:update(dt)
-    self.object.dy = self.object.dy + GRAVITY
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
     if self.object.dy > 0 then
@@ -19,8 +18,4 @@ function WalkingState:update(dt)
     if self.object.dx == 0 then
         self.object.state:change('idle')
     end
-end
-
-function WalkingState:render()
-    love.graphics.print('W')
 end

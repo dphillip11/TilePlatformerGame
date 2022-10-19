@@ -7,11 +7,12 @@ function JumpingState:init(def)
 end
 
 function JumpingState:update(dt)
-    self.object.dy = self.object.dy + GRAVITY
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
     if self.object.dy > 0 then
         self.object.state:change('falling')
     end
 end
+
+
 

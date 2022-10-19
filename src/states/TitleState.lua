@@ -35,9 +35,9 @@ function TitleState:update(dt)
     self.y = self.glides['y']:update(dt)
     -- update animation direction
     if self.x > tempX then
-        self.direction = -1
-    else
         self.direction = 1
+    else
+        self.direction = -1
     end
     -- update animation timer for foreground flowers
     self.timer = self.timer + dt

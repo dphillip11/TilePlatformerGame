@@ -6,8 +6,7 @@ function FallingState:init(def)
     
 end
 
-function FallingState:update(dt)
-    self.object.dy = self.object.dy + GRAVITY
+function FallingState:update(dt) 
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
     if self.object.dy < 0 then
@@ -17,4 +16,6 @@ function FallingState:update(dt)
         self.object.state:change('idle')
     end
 end
+
+
 

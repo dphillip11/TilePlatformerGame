@@ -43,15 +43,7 @@ end
 
 
 function Tile:render()
-    if self.glideY then
-        self.y = self.glideY.x1
-        -- remove dead tweens
-        if self.glideY.stopped == 1 then
-            self.glideY = nil
-        end
-    end
-
-    if self.x > -50 and self.x < VIEWPORT_WIDTH then
+    if self.x > -50 + SCROLL_X and self.x < VIEWPORT_WIDTH + SCROLL_X then
         if self.active == 0 then
             love.graphics.setColor(0.5,0.5,0.5)
         end

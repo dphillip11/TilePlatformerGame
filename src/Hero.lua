@@ -11,14 +11,11 @@ function Hero:init()
             ['jumping'] = JumpingState{object=self, frames={2,3,4,5}},
             ['falling'] = FallingState{object=self, frames={2,3,4,5}}
         },
-        scaleX = HERO_SCALE,
-        scaleY = HERO_SCALE,
-        height = self.qHeight * HERO_SCALE,
-        width = self.qWidth * HERO_SCALE,
+        scale = HERO_SCALE,
         texture = textures['hero'],
         quads = heroQuads,
     })
-    -- reacts with environment
+    -- reacts with tiles
     self.responsive = true
     self.input = HeroInput(self)
 end
@@ -29,7 +26,6 @@ function Hero:update(dt)
 end
 
 function Hero:render()
-    self.input:update(dt)
     Entity.render(self)
 end
 

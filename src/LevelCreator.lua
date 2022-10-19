@@ -7,25 +7,23 @@ function LevelCreator:init(columns, rows)
     self.columns = columns
     self.tileMap={}
 
-    -- grid of zeroes mapping play space for locating fixed tiles
-
+    -- grid of zeroes for locating fixed tiles
     for x = 1, self.columns do
-
         table.insert(self.tileMap, {})
-
         for y = 1, self.rows do
-                    table.insert(self.tileMap[x], 0)          
-            
+                    table.insert(self.tileMap[x], 0)            
         end
     end
-
+    -- ground to walk on
     for i = 1, columns do
         for j = 12, rows do
             self.tileMap[i][j] = Tile(i,j,'tile')
         end
     end
     self.tileMap[8][8] = Tile(8,8,'?')
-    hedgehog = Entity{indexX=3, indexY=3, dx=10, frames={'spikes','bloodyspikes'}}
+    self.tileMap[5][5] = Tile(5,5,'?')
+    self.tileMap[1][5] = Tile(1,5,'?')
+    hedgehog = Entity{indexX=3, indexY=3, dx=10, frames={4,3,2,1}, scale = 0.3}
 end
 
 function LevelCreator:update(dt)
@@ -52,14 +50,12 @@ function LevelCreator:collision(object, responsiveFlag)
         local indexX1 = math.floor(object.x/40)+1
         local indexX2 = math.floor((object.x + (object.width/2))/40)+1
         local indexX3 = math.floor((object.x + object.width)/40)+1
-        if level.tileMap[indexX1] and level.tileMap[indexX2] and level.tileMap[indexX3] and level.tileMap[indexX1][indexY] then         
-            if level.tileMap[indexX1][indexY] ~= 0 
-            or level.tileMap[indexX2][indexY] ~= 0 
-            or level.tileMap[indexX3][indexY] ~= 0 then
-                object.dy = 0
-                object.y = ((indexY -1)* 40) - object.height
-            end
-                     
+        
+        if (level.tileMap[indexX1] and level.tileMap[indexX1][indexY] and level.tileMap[indexX1][indexY]) ~= 0
+        or (level.tileMap[indexX2] and level.tileMap[indexX2][indexY] and level.tileMap[indexX2][indexY]) ~= 0 
+        or (level.tileMap[indexX3] and level.tileMap[indexX3][indexY] and level.tileMap[indexX3][indexY]) ~= 0 then
+            object.dy = 0
+            object.y = ((indexY -1)* 40) - object.height                    
         end
     end
 end
