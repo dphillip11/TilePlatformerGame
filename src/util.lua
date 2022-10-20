@@ -15,7 +15,7 @@ function AdjustPosition(object, collisions, dt)
     end
     if #object.tileCollisions['down'] > 0  then
         object.dy = 0
-        object.y = (TileIndex{object.y + object.height + 5}[1] - 1) * 40 - object.height
+        object.y = (TileIndex{object.y + object.height + 5}[1] - 1) * 40 - object.height -1
     end
     if #object.tileCollisions['left'] > 0 then
         object.x = (TileIndex{object.x - 5}[1]) * 40

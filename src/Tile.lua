@@ -17,17 +17,14 @@ function Tile:collision(object, type)
     end
 end
 
-function Tile:collisionResponse(object)
-    if self.type == '?' and object.directionY == 'N' and self.active == 1 and not self.glideY then 
-        table.insert(level.entities, Entity(self.xIndex,self.yIndex - 1, math.random(-200,200), math.random(-100,-1000)))
-        self.glideY = Glide({self.y, self.y - 10, self.y}, 0.3)
-        table.insert(level.glides, self.glideY)     
+function Tile:collide()
+    if self.type == '?' and self.active == 1 then 
+        table.insert(level.entities, Entity{indexX= self.xIndex, indexY=self.yIndex - 1, dx=math.random(-100,100), frames={4,3,2,1}, scale = math.random(0.1,0.5)})   
         self.active = 0   
     end
-    if (self.type == 'spikes' or self.type == "bloodySpikes") and object.directionY == 'S' then 
+    if (self.type == 'spikes' or self.type == "bloodySpikes") then 
         self.type = 'bloodySpikes'
-        playerHealth = math.max(0, playerHealth -1)
-        object.y = object.y - 20
+        healthbar.health = math.max(0, playerHealth -1)
     end
     if self.type == 'breakBlock3' and object.directionY == 'N' then 
         level.grid[self.xIndex][self.yIndex] = '0'
