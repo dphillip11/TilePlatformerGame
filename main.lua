@@ -2,8 +2,11 @@ require 'src/dependencies'
 
 function love.load()
     -- physics world
-    love.physics.setMeter(64)
     world = love.physics.newWorld(0, 900, true)
+    love.physics.setMeter(64)
+    world:setCallbacks( beginContact, endContact, preSolve, postSolve )
+
+    
     math.randomseed(love.timer.getTime())
 
     -- screen setup
@@ -24,6 +27,13 @@ function love.load()
     
 end
 
+function beginContact(a, b, coll)
+    a:getBody():setLinearVelocity(-1000,-1000)
+end
+
+function endContact(a, b, coll)
+    text = 2
+end
 
 function love.update(dt)
     world:update(dt)
@@ -40,6 +50,9 @@ end
 
 function love.draw()
     gameState:render()
+    if text then
+        love.graphics.print(text,200,0)
+    end
 end
 
 

@@ -2,8 +2,6 @@ Hero = Class{__includes = Entity}
 
 function Hero:init()
 
-    _,_,self.qWidth, self.qHeight = heroQuads[1]:getViewport( )
-
     Entity.init(self, {
         state = StateMachine{
             ['idle'] = IdleState{object=self, frames={1}},
