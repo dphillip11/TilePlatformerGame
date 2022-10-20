@@ -35,7 +35,7 @@ function Level:collision(object)
     if object.dy > 0 then
 
         -- assign indices to lower corners
-        local indices = TileIndex{object.y + object.height + 2, object.x, object.x + object.width}
+        local indices = TileIndex{object.y + object.height + 3, object.x + 2, object.x + object.width - 2}
 
         -- check y in range
         if indices[1] > 0 and indices[1] < level.rows + 1 then
@@ -53,7 +53,8 @@ function Level:collision(object)
     -- jumping
     if object.dy < 0 then
         -- assign indices to upper corners
-        local indices = TileIndex{object.y-2, object.x, object.x + object.width}
+
+        local indices = TileIndex{object.y - 2, object.x + 2, object.x + object.width - 2}
 
         -- check y in range
         if indices[1] > 0 and indices[1] < level.rows + 1 then
@@ -71,7 +72,7 @@ function Level:collision(object)
     -- left
     if object.dx < 0 then
         -- assign indices to left edge
-        local indices = TileIndex{object.x + 2, object.y+3, object.y + object.height - 3}
+        local indices = TileIndex{object.x - 2, object.y+3, object.y + object.height - 5}
 
         -- check x in range
         if indices[1] > 0 and indices[1] < level.columns + 1 then
@@ -89,7 +90,7 @@ function Level:collision(object)
     -- right
     if object.dx > 0 then
         -- assign indices to right edge
-        local indices = TileIndex{object.x + object.width - 2, object.y+3, object.y + object.height - 3}
+        local indices = TileIndex{object.x + object.width, object.y+3, object.y + object.height - 5}
 
         -- check x in range
         if indices[1] > 0 and indices[1] < level.columns + 1 then

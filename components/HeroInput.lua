@@ -13,7 +13,7 @@ function HeroInput:update(dt)
         self.object.dx = 0
     end
     
-    if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('space') then
+    if (love.keyboard.wasPressed('up') or love.keyboard.wasPressed('space')) and #self.object.tileCollisions['down'] > 0 then
         self.object.dy = -HERO_JUMP
     end
 end

@@ -18,7 +18,12 @@ function LevelMaker(columns, rows)
     tileMap[5][5] = Tile(5,5,'?')
     tileMap[1][5] = Tile(1,5,'?')
     
-    entities['hedgehog'] = Entity{indexX=3, indexY=3, dx=10, frames={4,3,2,1}, scale = 0.3}
+    entities['hedgehog3'] = Entity{indexX=40, indexY=9, dx=-HERO_SPEED,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.4}
+    entities['hedgehog1'] = Entity{indexX=3, indexY=1, dx=30,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.2}
+    entities['hedgehog2'] = Entity{indexX=20, indexY=9, dx=-30,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.2}
+    for i = 10, 18 do
+        tileMap[12][i] = Tile(12,i,'?')
+    end
 
     return tileMap, entities
 end

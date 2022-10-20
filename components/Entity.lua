@@ -3,8 +3,10 @@ Entity = Class{}
 function Entity:init(def)
     -- define physical atributes
     self.responsive = false
-    self.x = 0 or (def.indexX - 1) * 40 
-    self.y = 0 or (def.indexY - 1) * 40 
+    indexX = def.indexX or 1
+    indexY = def.indexY or 1
+    self.x = (indexX - 1) * 40
+    self.y = (indexY - 1) * 40
     self.dx = def.dx or 0
     self.dy = def.dy or 0
     self.texture = def.texture or textures['hedgehog']
@@ -12,8 +14,10 @@ function Entity:init(def)
     _,_,self.qWidth, self.qHeight = self.quads[1]:getViewport( )
     self.scaleX = def.scale or 1
     self.scaleY = def.scale or 1
-    self.height = self.qHeight*self.scaleY or 40
-    self.width = self.qWidth*self.scaleY or 40
+    self.height = self.qHeight*self.scaleY 
+    -- or 40
+    self.width = self.qWidth*self.scaleY 
+    -- or 40
     self.frame = 1
     self.onScreen = 0
     self.state = def.state or StateMachine{
@@ -45,9 +49,11 @@ function Entity:update(dt)
         end
         if self.dx > 0 then 
             self.scaleX = self.scaleY
-        end 
+        end
+        
         self.x = self.x + (self.dx * dt)
         self.y = self.y + (self.dy * dt)
+       
     end
     if self.x > -100 + SCROLL_X and self.x < VIEWPORT_WIDTH + 100 + SCROLL_X and self.y > SCROLL_Y - 100 and self.y < SCROLL_Y + VIEWPORT_HEIGHT + 100 then
         self.onScreen = 1

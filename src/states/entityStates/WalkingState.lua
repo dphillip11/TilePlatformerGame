@@ -15,7 +15,7 @@ function WalkingState:update(dt)
     if self.object.dy < 0 then
         self.object.state:change('jumping')
     end
-    if self.object.dx == 0 then
+    if self.object.dx == 0 and not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
         self.object.state:change('idle')
     end
 end
