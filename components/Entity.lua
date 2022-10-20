@@ -23,13 +23,21 @@ function Entity:init(def)
         ['falling'] = FallingState{object=self, frames=def.frames}
     }
     self.state:change('idle')
+    self.tileCollisions ={}
 end
 
 
 function Entity:update(dt)
     if self.onScreen then
         self.dy = self.dy + GRAVITY
-        level:collision(self, self.responsive)
+
+        -- create list of collisions
+        self.tileCollisions = level:collision(self)
+
+        -- adjust position
+        AdjustPosition(self, self.tileCollisions, dt)
+
+        -- update state collision choices
         self.state:update(dt)
         
         if self.dx < 0 then 
@@ -41,7 +49,7 @@ function Entity:update(dt)
         self.x = self.x + (self.dx * dt)
         self.y = self.y + (self.dy * dt)
     end
-    if self.x > -100 + SCROLL_X and self.x < VIEWPORT_WIDTH + 100 + SCROLL_X then
+    if self.x > -100 + SCROLL_X and self.x < VIEWPORT_WIDTH + 100 + SCROLL_X and self.y > SCROLL_Y - 100 and self.y < SCROLL_Y + VIEWPORT_HEIGHT + 100 then
         self.onScreen = 1
     else
         self.onScreen = 0

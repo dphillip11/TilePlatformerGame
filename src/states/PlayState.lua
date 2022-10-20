@@ -5,7 +5,7 @@ function PlayState:init()
     SCROLL_Y = 0
 
     background = Background{}
-    level=LevelCreator(300, 18)
+    level=Level(300, 18)
     hero = Hero(level)
     healthbar=PlayerHealth(6)
 end

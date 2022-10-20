@@ -10,7 +10,7 @@ function Tile:init(indexX, indexY, type)
     self.active = 1
 end
 
-function Tile:collision(object)
+function Tile:collision(object, type)
     if object.x + object.width - 2 > self.x and object.x + 2< self.x + self.width and object.y + object.height - 2> self.y and object.y + 2< self.y + self.height then
         self:collisionResponse(object)
         return true

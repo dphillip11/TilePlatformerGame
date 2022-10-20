@@ -1,10 +1,14 @@
 Class = require 'lib/class'
 require 'src/constants'
 
+-- utilities
+require 'src/util'
+
 -- classes
 require 'src/Hero'
 require 'src/Background'
-require 'src/LevelCreator'
+require 'src/LevelMaker'
+require 'src/Level'
 require 'src/Tile'
 require 'lib/StateMachine'
 require 'src/PlayerHealth'
@@ -29,7 +33,7 @@ require 'src/states/entityStates/IdleState'
 -- graphics
 textures={
     ['background'] = {
-        ['jungle'] = love.graphics.newImage('graphics/jungleworldbackground.png'),
+        ['jungle'] = love.graphics.newImage('graphics/jungleworldrepeat.png'),
         ['mountains'] = love.graphics.newImage('graphics/background.png')
     },
     ['midground'] = {
