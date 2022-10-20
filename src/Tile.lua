@@ -5,16 +5,14 @@ function Tile:init(indexX, indexY, type)
     self.yIndex = indexY
     self.x = (indexX - 1) * 40
     self.y = (indexY - 1) * 40 
-    _,_,self.width, self.height = quads[type]:getViewport( )
     self.type = type
     self.active = 1
-end
 
-function Tile:collision(object, type)
-    if object.x + object.width - 2 > self.x and object.x + 2< self.x + self.width and object.y + object.height - 2> self.y and object.y + 2< self.y + self.height then
-        self:collisionResponse(object)
-        return true
-    end
+    -- physical properties
+    self.body = love.physics.newBody(world, self.x+20, self.y+20, 'static')
+    self.shape = love.physics.newRectangleShape(40,40)
+    self.fixture = love.physics.newFixture( self.body, self.shape)
+    self.fixture:setFriction(0)
 end
 
 function Tile:collide()
@@ -26,13 +24,13 @@ function Tile:collide()
         self.type = 'bloodySpikes'
         healthbar.health = math.max(0, playerHealth -1)
     end
-    if self.type == 'breakBlock3' and object.directionY == 'N' then 
+    if self.type == 'breakBlock3' then 
         level.grid[self.xIndex][self.yIndex] = '0'
     end
-    if self.type == 'breakBlock2' and object.directionY == 'N' then 
+    if self.type == 'breakBlock2' then 
         self.type = 'breakBlock3'
     end
-    if self.type == 'breakBlock1' and object.directionY == 'N' then 
+    if self.type == 'breakBlock1' then 
         self.type = 'breakBlock2'
     end
     

@@ -5,15 +5,19 @@ function HeroInput:init(hero)
 end
 
 function HeroInput:update(dt)
-    if love.keyboard.isDown('left') then
-        self.object.dx = - HERO_SPEED
-    elseif love.keyboard.isDown('right') then
-        self.object.dx = HERO_SPEED
+    self.object.body:setAngle(0)
+    _, Vy = self.object.body:getLinearVelocity()
+    if love.keyboard.isDown("right") then
+        self.object.body:setLinearVelocity(HERO_SPEED,Vy)
+        
+    elseif love.keyboard.isDown("left") then
+        self.object.body:setLinearVelocity(-HERO_SPEED,Vy)
     else
-        self.object.dx = 0
+        self.object.body:setLinearVelocity(0,Vy)
+    end
+    if love.keyboard.keysPressed['up'] == true and math.abs(Vy)<1 then 
+        self.object.body:applyLinearImpulse( 0, -1000 )
     end
     
-    if (love.keyboard.wasPressed('up') or love.keyboard.wasPressed('space')) and #self.object.tileCollisions['down'] > 0 then
-        self.object.dy = -HERO_JUMP
-    end
 end
+

@@ -14,7 +14,7 @@ function JumpingState:update(dt)
             tile:collide()
         end
     end
-    if self.object.dy > 0 then
+    if self.object.dy > 2 then
         self.object.state:change('falling')
     end
 end

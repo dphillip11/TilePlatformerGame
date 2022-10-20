@@ -1,6 +1,9 @@
 require 'src/dependencies'
 
 function love.load()
+    -- physics world
+    love.physics.setMeter(64)
+    world = love.physics.newWorld(0, 900, true)
     math.randomseed(love.timer.getTime())
 
     -- screen setup
@@ -16,10 +19,14 @@ function love.load()
         ['play'] = PlayState()
     })
     gameState:change('title')
+
+    
+    
 end
 
 
 function love.update(dt)
+    world:update(dt)
     if love.keyboard.isDown('left') then
         love.keyboard.keysPressed['left'] = true
     end

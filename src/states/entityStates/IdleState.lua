@@ -8,13 +8,13 @@ end
 function IdleState:update(dt)
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
-    if self.object.dx ~= 0 and self.object.dy == 0 then
+    if math.abs(self.object.dx) > 2 and math.abs(self.object.dy) < 2 then
         self.object.state:change('walking')
     end
-    if self.object.dy < 0 then
+    if self.object.dy < -2 then
         self.object.state:change('jumping')
     end
-    if self.object.dy > 0 then
+    if self.object.dy > 2 then
         self.object.state:change('falling')
     end
 end

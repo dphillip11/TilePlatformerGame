@@ -9,13 +9,13 @@ end
 function WalkingState:update(dt)
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
-    if self.object.dy > 0 then
+    if self.object.dy > 2 then
         self.object.state:change('falling')
     end
-    if self.object.dy < 0 then
+    if self.object.dy < -2 then
         self.object.state:change('jumping')
     end
-    if self.object.dx == 0 and not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
+    if math.abs(self.object.dx) < 2 then
         self.object.state:change('idle')
     end
 end

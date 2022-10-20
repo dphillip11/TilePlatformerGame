@@ -18,15 +18,21 @@ function Hero:init()
     -- reacts with tiles
     self.responsive = true
     self.input = HeroInput(self)
+
+   
 end
 
 function Hero:update(dt)
     self.input:update(dt)
     Entity.update(self, dt)
+    self.dx,self.dy = self.body:getLinearVelocity()
 end
 
 function Hero:render()
     Entity.render(self)
+    love.graphics.setFont(fonts['small'])
+    love.graphics.print(self.dx)
+    love.graphics.print(math.floor(self.dy), 0, 20)
 end
 
 
