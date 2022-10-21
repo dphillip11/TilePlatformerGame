@@ -1,52 +1,40 @@
 Entity = Class{}
 
 function Entity:init(def)
-    -- define physical atributes
-    self.responsive = false
-    indexX = def.indexX or level.rows-2
-    indexY = def.indexY or level.rows-2
-    self.x = (indexX - 1) * 40
-    self.y = (indexY - 1) * 40
-    self.dx = def.dx or 0
-    self.dy = def.dy or 0
-    self.texture = def.texture or textures['hedgehog']
-    self.quads = def.quads or hedgehogQuads
+    
+    self.x = def.x or 0
+    self.y = def.y or 0
+    self.dx = 0
+    self.dy = 0
+    self.type = def.type
+    self.texture = def.texture or textures['tiles']
+    self.quads = def.quads or quads
     _,_,self.qWidth, self.qHeight = self.quads[1]:getViewport( )
     self.scaleX = def.scale or 1
     self.scaleY = def.scale or 1
     self.height = self.qHeight*self.scaleY 
-    -- or 40
     self.width = self.qWidth*self.scaleY 
-    -- or 40
-    self.frame = 1
     self.onScreen = 0
-    self.state = def.state or StateMachine{
-        ['idle'] = IdleState{object=self, frames=def.frames},
-        ['walking'] = WalkingState{object=self, frames=def.frames},
-        ['jumping'] = JumpingState{object=self, frames=def.frames},
-        ['falling'] = FallingState{object=self, frames=def.frames}
-    }
-    self.state:change('walking')
-    self.tileCollisions ={}
+    self.state = def.state or 0 
+    self.frame = 1
+
      -- physical properties
      self.body = love.physics.newBody( world, self.x - self.width/2, self.y- self.height/2, 'dynamic')
      self.shape = love.physics.newRectangleShape(self.width-4,self.height-1)
      self.fixture = love.physics.newFixture( self.body, self.shape)
      self.fixture:setFriction(1)
+     self.fixture:setUserData(self)
 end
 
 
 function Entity:update(dt)
     if self.onScreen then
-        self.body:setAngle(0)
-
-        -- create list of collisions
-        self.tileCollisions = level:collision(self)
-
-        -- update state collision choices
         self.state:update(dt)
         
+        self.body:setAngle(0)
+
         self.dx, self.dy = self.body:getLinearVelocity()
+
         if self.dx < 0 then 
             self.scaleX = -self.scaleY
         end

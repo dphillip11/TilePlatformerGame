@@ -1,11 +1,6 @@
 require 'src/dependencies'
 
 function love.load()
-    -- physics world
-    world = love.physics.newWorld(0, 900, true)
-    love.physics.setMeter(64)
-    world:setCallbacks( beginContact, endContact, preSolve, postSolve )
-
     
     math.randomseed(love.timer.getTime())
 
@@ -18,25 +13,17 @@ function love.load()
 
     -- states
     gameState = StateMachine({
-        ['title'] = TitleState(),
-        ['play'] = PlayState()
+        ['title'] = function() return TitleState() end,
+        ['play'] = function() return PlayState() end,
+        ['gameover'] = function() return GameOverState() end
     })
     gameState:change('title')
 
-    
-    
 end
 
-function beginContact(a, b, coll)
-    a:getBody():setLinearVelocity(-1000,-1000)
-end
-
-function endContact(a, b, coll)
-    text = 2
-end
 
 function love.update(dt)
-    world:update(dt)
+    
     if love.keyboard.isDown('left') then
         love.keyboard.keysPressed['left'] = true
     end

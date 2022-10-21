@@ -1,6 +1,7 @@
 TitleState = Class{__includes = BaseState}
 
 function TitleState:init()
+    
     self.timer = 0
     self.period = 1/ANIMATION_SPEED
     self.frame = 1

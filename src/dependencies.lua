@@ -6,6 +6,7 @@ require 'src/util'
 
 -- classes
 require 'src/Hero'
+require 'src/Hedgehog'
 require 'src/Background'
 require 'src/LevelMaker'
 require 'src/Level'
@@ -14,21 +15,27 @@ require 'lib/StateMachine'
 require 'src/PlayerHealth'
 
 -- components
-require 'components/Glide'
-require 'components/Entity'
-require 'components/BaseState'
-require 'components/Animation'
-require 'components/HeroInput'
+require 'src/components/Glide'
+require 'src/components/Entity'
+require 'src/components/BaseState'
+require 'src/components/Animation'
+require 'src/components/HeroInput'
+require 'src/components/ChasingAvoidingInput'
 
 -- states
 require 'src/states/TitleState'
 require 'src/states/PlayState'
+require 'src/states/GameOverState'
 
 -- entityStates
-require 'src/states/entityStates/FallingState'
-require 'src/states/entityStates/JumpingState'
-require 'src/states/entityStates/WalkingState'
-require 'src/states/entityStates/IdleState'
+require 'src/entityStates/FallingState'
+require 'src/entityStates/JumpingState'
+require 'src/entityStates/WalkingState'
+require 'src/entityStates/IdleState'
+
+-- properties
+require 'src/properties/heroProperties'
+require 'src/properties/hedgehogProperties'
 
 -- graphics
 textures={

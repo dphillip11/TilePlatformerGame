@@ -13,12 +13,13 @@ function Tile:init(indexX, indexY, type)
     self.shape = love.physics.newRectangleShape(40,40)
     self.fixture = love.physics.newFixture( self.body, self.shape)
     self.fixture:setFriction(0)
+    self.fixture:setUserData(self)
 end
 
 function Tile:collide()
     if self.type == '?' and self.active == 1 then 
-        table.insert(level.entities, Entity{indexX= self.xIndex, indexY=self.yIndex - 1, dx=math.random(-100,100), frames={4,3,2,1}, scale = math.random(0.1,0.5)})   
-        self.active = 0   
+        -- table.insert(level.entities, Hedgehog(self.x, self.y-100) )
+        self.active = 0  
     end
     if (self.type == 'spikes' or self.type == "bloodySpikes") then 
         self.type = 'bloodySpikes'

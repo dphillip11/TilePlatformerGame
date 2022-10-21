@@ -2,7 +2,7 @@ Animation = Class{}
 
 function Animation:init(def)
     self.frames = def.frames
-    self.interval = 1/ANIMATION_SPEED or def.interval
+    self.interval = def.interval or 1/ANIMATION_SPEED 
     self.timer = 0
     self.currentFrame = 1
 end
