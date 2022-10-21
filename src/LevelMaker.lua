@@ -24,6 +24,7 @@ function LevelMaker(columns, rows)
     tileMap[16][rows]=0
     
     entities[1]= Hedgehog(100,100,0.125)
+    entities[2]= Squirrel(1000,100,0.125)
     -- entities['hedgehog1'] = Entity{indexX=3, indexY=1, dx=30,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.2}
     -- entities['hedgehog2'] = Entity{indexX=20, indexY=9, dx=-30,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.2}
     -- for i = 10, 18 do

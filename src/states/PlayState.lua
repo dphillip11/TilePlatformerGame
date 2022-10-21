@@ -8,7 +8,7 @@ function PlayState:init()
 
     -- physics world
     love.physics.setMeter(64)
-    world = love.physics.newWorld(0, 900, true)
+    world = love.physics.newWorld(0, 1000, true)
     world:setCallbacks( beginContact, endContact, preSolve, postSolve )
    
     background = Background{}

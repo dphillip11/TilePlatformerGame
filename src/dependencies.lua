@@ -7,6 +7,7 @@ require 'src/util'
 -- classes
 require 'src/Hero'
 require 'src/Hedgehog'
+require 'src/Squirrel'
 require 'src/Background'
 require 'src/LevelMaker'
 require 'src/Level'
@@ -32,10 +33,12 @@ require 'src/entityStates/FallingState'
 require 'src/entityStates/JumpingState'
 require 'src/entityStates/WalkingState'
 require 'src/entityStates/IdleState'
+require 'src/entityStates/ThrowingState'
 
 -- properties
 require 'src/properties/heroProperties'
 require 'src/properties/hedgehogProperties'
+require 'src/properties/squirrelProperties'
 
 -- graphics
 textures={
@@ -52,6 +55,7 @@ textures={
     },
     ['grass'] = love.graphics.newImage('graphics/jungleground.png'),
     ['hero'] = love.graphics.newImage('graphics/hero.png'),
+    ['squirrel'] = love.graphics.newImage('graphics/squirrel.png'),
     ['hedgehog'] = love.graphics.newImage('graphics/hedgehog.png'),
     ['tiles']=love.graphics.newImage('graphics/environment.png'),
     ['jungle'] = love.graphics.newImage('graphics/jungle.png'),
@@ -85,7 +89,8 @@ quads={
     ['breakBlock3'] = love.graphics.newQuad(280, 0, 40, 40, textures['tiles'] ),
     ['heart']       = love.graphics.newQuad(320, 0, 40, 40, textures['tiles'] ),
     ['halfHeart']   = love.graphics.newQuad(360, 0, 40, 40, textures['tiles'] ),
-    ['goldRing']    = love.graphics.newQuad(400, 0, 40, 40, textures['tiles'] )
+    ['goldRing']    = love.graphics.newQuad(400, 0, 40, 40, textures['tiles'] ),
+    ['acorn'] = love.graphics.newQuad(2028, 432, 108, 139, textures['squirrel']) 
 }
 
 heroQuads={
@@ -102,3 +107,11 @@ hedgehogQuads={
     [3] = love.graphics.newQuad(1028, 0, 514, 500, textures['hedgehog']),
     [4] = love.graphics.newQuad(1542, 0, 514, 500, textures['hedgehog'])
 }
+
+squirrelQuads={
+    [1] = love.graphics.newQuad( 0, 0, 507, 571, textures['squirrel']),
+    [2] = love.graphics.newQuad(507, 0, 507, 571, textures['squirrel']),
+    [3] = love.graphics.newQuad(1014, 0, 507, 571, textures['squirrel']),
+    [4] = love.graphics.newQuad(1521, 0, 507, 571, textures['squirrel']),
+}
+    

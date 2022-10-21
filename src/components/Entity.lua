@@ -51,10 +51,10 @@ end
 
 
 function Entity:render()
-    if self.onScreen == 1 then
-        self.state:render() 
+    if self.onScreen == 1 then 
         x1,y1 = self.body:getWorldPoints(self.shape:getPoints())
         love.graphics.draw(self.texture, self.quads[self.frame], x1 + (self.scaleX<0 and self.width or 0), y1, 0, self.scaleX, self.scaleY)
+        self.state:render()
     end
     
 end
