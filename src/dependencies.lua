@@ -5,6 +5,7 @@ require 'src/constants'
 require 'src/util'
 
 -- classes
+require 'src/Acorn'
 require 'src/Hero'
 require 'src/Hedgehog'
 require 'src/Squirrel'

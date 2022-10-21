@@ -8,7 +8,8 @@ function Squirrel:init(x_, y_, scale_)
 end
 
 function Squirrel:update(dt)
-    self.input:update(dt)
+    
+    -- self.input:update(dt)
     Entity.update(self, dt)
     if love.keyboard.isDown('space') then
         self.state:change('throwing')
