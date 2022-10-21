@@ -18,9 +18,9 @@ function EscapingState:update(dt)
         self.object.state:change('throwing')
     else
         if heroX - x > 0 then
-            self.object.body:setLinearVelocity(-200,Vy)
+            self.object.body:setLinearVelocity(-400,Vy)
         else
-            self.object.body:setLinearVelocity(200,Vy)
+            self.object.body:setLinearVelocity(400,Vy)
         end
     end
     if math.random(0,100)>90 and math.abs(Vy)< 5 then

@@ -26,7 +26,7 @@ function LevelMaker(columns, rows)
                 end
             end
             if tileMap[x][y] == 0 then 
-                if math.random(1,25) == 10 then
+                if math.random(1,40) == 10 then
                     tileMap[x][y] = Tile(x,y,'?')
                 end
             end
@@ -43,7 +43,7 @@ function LevelMaker(columns, rows)
         for y = 1, rows - 1 do
             if tileMap[x][y] == 0 and tileMap[x][y+1] ~= 0 and tileMap[x][y+1].type == '?' then
                 if math.random(1,100)>80 then
-                    table.insert(entities, Squirrel((x-1)* 40,(y-2) * 40,0.125))
+                    table.insert(entities, Squirrel((x-1)* 40,y * 40,0.125))
                 end
             end
         end

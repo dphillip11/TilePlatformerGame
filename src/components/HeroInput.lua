@@ -15,7 +15,7 @@ function HeroInput:update(dt)
     else
         self.object.body:setLinearVelocity(0,Vy)
     end
-    if love.keyboard.keysPressed['up'] == true and math.abs(Vy)<1 then 
+    if math.abs(Vy)<5 and (love.keyboard.keysPressed['up'] == true or love.keyboard.keysPressed['space'] == true )then 
         self.object.body:applyLinearImpulse( 0, -750 )
     end
     

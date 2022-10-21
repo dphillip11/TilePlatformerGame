@@ -5,7 +5,7 @@ function Background:init()
     self.y = 0
     self.jungleX = 0
     self.jungleY = 0
-    self.grassY = VIEWPORT_HEIGHT- 300
+    self.grassY = VIEWPORT_HEIGHT- 400
     self.midgroundX = 0
 end
 

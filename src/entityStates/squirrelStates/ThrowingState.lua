@@ -9,7 +9,8 @@ function ThrowingState:init(def)
 end
 
 function ThrowingState:update(dt)
-    self.object.body:setLinearVelocity(0,0)
+    Vx, Vy = self.object.body:getLinearVelocity()
+    self.object.body:setLinearVelocity(0,Vy)
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
     if self.acorn.active==0 then
