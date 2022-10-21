@@ -16,4 +16,7 @@ function Hero:render()
     Entity.render(self)
 end
 
+function Hero:collide()
+end
+
 

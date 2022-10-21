@@ -14,7 +14,24 @@ function LevelMaker(columns, rows)
         end
     end
     
-    
+    gapFlag=0
+    qFlag=0
+    for x = 2, columns - 1 do
+        for y = 1, rows - 1 do
+            if tileMap[x][y] == 0 and tileMap[x][y+1] ~= 0 and tileMap[x][y+1].type == 'tile' then
+                tileMap[x][y+1] = Tile(x,y+1,'topper')
+                if math.random(0,15)>14 then 
+                    tileMap[x][y+1] = Tile(x,y+1,'spikes')
+                    tileMap[x-1][y+1] = Tile(x-1,y+1,'spikes')
+                end
+            end
+            if tileMap[x][y] == 0 then 
+                if math.random(1,25) == 10 then
+                    tileMap[x][y] = Tile(x,y,'?')
+                end
+            end
+        end
+    end
     tileMap[8][rows -3] = Tile(8,rows -3,'?')
     tileMap[5][rows -3] = Tile(5,rows -3,'?')
     tileMap[1][rows -3] = Tile(1,rows -3,'?')
@@ -22,14 +39,18 @@ function LevelMaker(columns, rows)
     tileMap[16][rows].body:destroy()
     tileMap[15][rows]=0
     tileMap[16][rows]=0
-    
-    entities[1]= Hedgehog(100,100,0.125)
-    entities[2]= Squirrel(1000,100,0.125)
-    -- entities['hedgehog1'] = Entity{indexX=3, indexY=1, dx=30,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.2}
-    -- entities['hedgehog2'] = Entity{indexX=20, indexY=9, dx=-30,texture=textures['hero'], quads=heroQuads, frames={4,3,2,1}, scale = 0.2}
-    -- for i = 10, 18 do
-    --     tileMap[12][i] = Tile(12,i,'?')
-    -- end
+    for x = 2, columns - 1 do
+        for y = 1, rows - 1 do
+            if tileMap[x][y] == 0 and tileMap[x][y+1] ~= 0 and tileMap[x][y+1].type == '?' then
+                if math.random(1,100)>80 then
+                    table.insert(entities, Squirrel((x-1)* 40,(y-2) * 40,0.125))
+                end
+            end
+        end
+    end
+    table.insert(entities, Hedgehog(100,100,0.125))
+    table.insert(entities, Squirrel(1000,100,0.125))
+  
 
     return tileMap, entities
 end

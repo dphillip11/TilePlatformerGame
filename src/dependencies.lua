@@ -24,6 +24,7 @@ require 'src/components/Animation'
 require 'src/components/HeroInput'
 require 'src/components/ChasingAvoidingInput'
 
+
 -- states
 require 'src/states/TitleState'
 require 'src/states/PlayState'
@@ -34,7 +35,10 @@ require 'src/entityStates/FallingState'
 require 'src/entityStates/JumpingState'
 require 'src/entityStates/WalkingState'
 require 'src/entityStates/IdleState'
-require 'src/entityStates/ThrowingState'
+require 'src/entityStates/squirrelStates/ThrowingState'
+require 'src/entityStates/squirrelStates/EscapingState'
+require 'src/entityStates/squirrelStates/SqFallingState'
+require 'src/entityStates/squirrelStates/SqJumpingState'
 
 -- properties
 require 'src/properties/heroProperties'

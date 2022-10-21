@@ -2,11 +2,10 @@ function squirrelProperties(self, x_, y_, scale_)
     return self, {
 
     state = StateMachine{
-        ['idle'] =  function() return IdleState{object=self, frames={1}}end,
-        ['walking'] =  function() return WalkingState{object=self, frames={4}}end,
-        ['jumping'] =  function() return JumpingState{object=self, frames={4}}end,
-        ['falling'] =  function() return FallingState{object=self, frames={4}}end,
-        ['throwing'] = function() return ThrowingState{object=self, frames={1,2,3,1,2}}end
+        ['escaping'] =  function() return EscapingState{object=self, frames={1}}end,
+        ['throwing'] = function() return ThrowingState{object=self, frames={1,2,3,1,2}}end,
+        ['jumping'] =  function() return SqJumpingState{object=self, frames={1}}end,
+        ['falling'] = function() return SqFallingState{object=self, frames={1}}end
     },
     scale = scale_ or 0.2,
     texture = textures['squirrel'],

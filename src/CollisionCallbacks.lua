@@ -14,6 +14,11 @@ function beginContact(a, b, coll)
         a.body:setLinearVelocity(-a.dx,-100)
     end
 
+    if (a.type == 'hero' or b.type == 'hero') and (a.type == 'squirrel' or b.type == 'squirrel') then
+        a:collide()
+        b:collide()
+    end
+
 end
 
  
