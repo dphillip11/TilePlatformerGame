@@ -61,8 +61,10 @@ function PlayState:render()
     love.graphics.translate(-math.floor(SCROLL_X), -math.floor(SCROLL_Y))
     level:render()
     hero:render()
+    love.graphics.printf("'m' to enter Level Maker",20,0,350, 'left')
     love.graphics.translate(math.floor(SCROLL_X), math.floor(SCROLL_Y))
     healthbar:render()
+    
     
 end
 
