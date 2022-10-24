@@ -3,6 +3,7 @@ require 'src/constants'
 
 -- utilities
 require 'src/util'
+utf8 = require("utf8")
 
 -- classes
 require 'src/Acorn'
@@ -83,7 +84,8 @@ textures={
 -- fonts
 fonts = {
     ['thin'] = love.graphics.newFont('fonts/thin.ttf', 100),
-    ['small'] = love.graphics.newFont('fonts/arial.ttf', 30)
+    ['small'] = love.graphics.newFont('fonts/arial.ttf', 30),
+    ['smallThin'] = love.graphics.newFont('fonts/thin.ttf', 30)
 }
 
 quads={

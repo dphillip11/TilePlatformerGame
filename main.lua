@@ -12,6 +12,7 @@ function love.load()
 
     -- keylogger
     love.keyboard.keysPressed = {}
+    mouseLog = {}
 
     -- states
     gameState = StateMachine({
@@ -41,9 +42,6 @@ end
 
 function love.draw()
     gameState:render()
-    if text then
-        love.graphics.print(text,200,0)
-    end
 end
 
 

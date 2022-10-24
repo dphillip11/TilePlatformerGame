@@ -41,8 +41,8 @@ function PlayState:enter(new_level)
         level = new_level
     end
 
-    for i = 1, 300 do
-        for j = 1,18 do
+    for i = 1, level.columns do
+        for j = 1,level.rows do
             if level.tileMap[i][j] ~= 0 then
                 level.tileMap[i][j]:addBody()
             end
