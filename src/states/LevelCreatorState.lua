@@ -16,7 +16,29 @@ end
 
 
 function LevelCreatorState:update(dt)
-    
+    if mouseClicked() then 
+        x,y = mouseClicked()
+        if LMState and LMState == 1 then
+            i,j=pointToIndex(x+SCROLL_X,y+SCROLL_Y)
+            if y > 40 then
+                    if selector < # types + 1 then
+                        new_level.tileMap[i][j] = Tile(i,j, types[selector])
+                    end
+                    if selector == #types + 1 then
+                        table.insert(new_level.entities, Hedgehog(x-20,y-20,0.125))
+                    end
+                    if selector == #types + 2 then
+                        table.insert(new_level.entities, Squirrel(x-20,y-20,0.125))
+                    end
+                    if selector > #types + 2 then
+                        new_level.tileMap[i][j] = 0
+                    end
+            else
+                selector = math.floor(x/40) + 1
+            end
+        end
+    end
+
     if love.keyboard.wasPressed('left') then
         SCROLL_X = math.max(0,SCROLL_X - 100)
     end
@@ -36,27 +58,6 @@ function LevelCreatorState:update(dt)
     background:update(dt)
 end
 
-function love.mousepressed(x,y)
-    if LMState and LMState == 1 then
-        i,j=pointToIndex(x+SCROLL_X,y+SCROLL_Y)
-        if y > 40 then
-                if selector < # types + 1 then
-                    new_level.tileMap[i][j] = Tile(i,j, types[selector])
-                end
-                if selector == #types + 1 then
-                    table.insert(new_level.entities, Hedgehog(x-20,y-20,0.125))
-                end
-                if selector == #types + 2 then
-                    table.insert(new_level.entities, Squirrel(x-20,y-20,0.125))
-                end
-                if selector > #types + 2 then
-                    new_level.tileMap[i][j] = 0
-                end
-        else
-            selector = math.floor(x/40) + 1
-        end
-    end
-end
 
 function LevelCreatorState:exit()
     LMState=0

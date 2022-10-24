@@ -35,6 +35,7 @@ function love.update(dt)
     end
     gameState:update(dt)
     love.keyboard.keysPressed = {}
+    mouseLog = {}
 end
 
 
@@ -56,6 +57,19 @@ end
 function love.keyboard.wasPressed(key)
     if love.keyboard.keysPressed[key] then
         return true
+    else
+        return false
+    end
+end
+
+function love.mousepressed(x,y)
+    mouseLog['x']=x
+    mouseLog['y']=y
+end
+
+function mouseClicked()
+    if mouseLog['x'] and mouseLog['y'] then
+        return mouseLog['x'],mouseLog['y']
     else
         return false
     end

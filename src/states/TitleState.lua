@@ -22,9 +22,9 @@ function TitleState:init()
     -- initialise coordinates for gliding animation
     self.x = 0
     self.y = 0
-
-    load_level = Level(300,18)
-    loadTileMap(load_level, 'tilemap1.csv')
+    if love.filesystem.getInfo('level.csv') then
+        load_level = loadLevel('level.csv')
+    end
 end
 
 function TitleState:update(dt)
