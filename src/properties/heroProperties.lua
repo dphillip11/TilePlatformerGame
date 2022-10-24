@@ -10,7 +10,7 @@ function heroProperties(self)
     scale = HERO_SCALE,
     texture = textures['hero'],
     quads = heroQuads,
-    x = 100,
+    x = 200,
     y = 500,
     type='hero'
 }

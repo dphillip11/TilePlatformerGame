@@ -1,7 +1,7 @@
 Level = Class{}
 
 
-function Level:init(columns, rows)
+function Level:init(columns, rows, world)
     -- 40 x 40 tiles, screen space is 32 x 18 tiles
     self.rows = rows
     self.columns = columns

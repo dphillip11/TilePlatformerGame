@@ -1,6 +1,8 @@
 require 'src/dependencies'
 
 function love.load()
+     
+     
     
     math.randomseed(love.timer.getTime())
 
@@ -15,7 +17,8 @@ function love.load()
     gameState = StateMachine({
         ['title'] = function() return TitleState() end,
         ['play'] = function() return PlayState() end,
-        ['gameover'] = function() return GameOverState() end
+        ['gameover'] = function() return GameOverState() end,
+        ['levelMaker'] = function() return LevelCreatorState() end
     })
     gameState:change('title')
 

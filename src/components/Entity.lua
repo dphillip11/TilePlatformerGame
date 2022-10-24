@@ -17,24 +17,17 @@ function Entity:init(def)
     self.onScreen = 0
     self.state = def.state or 0 
     self.frame = 1
-
-     -- physical properties
-     self.body = love.physics.newBody( world, self.x - self.width/2, self.y- self.height/2, 'dynamic')
-     self.shape = love.physics.newRectangleShape(self.width-4,self.height-1)
-     self.fixture = love.physics.newFixture( self.body, self.shape)
-     self.fixture:setFriction(1)
-     self.fixture:setUserData(self)
 end
 
-
 function Entity:update(dt)
-    if self.onScreen then
-        self.state:update(dt)
-        
+    if self.body then
+        self.state:update(dt)        
         self.body:setAngle(0)
-
         self.dx, self.dy = self.body:getLinearVelocity()
+        self.x, self.y = self.body:getWorldPoints(self.shape:getPoints())
+    end
 
+    if self.onScreen then
         if self.dx < 0 then 
             self.scaleX = -self.scaleY
         end
@@ -42,7 +35,8 @@ function Entity:update(dt)
             self.scaleX = self.scaleY
         end     
     end
-    if self.body:getX() > -100 + SCROLL_X and self.body:getX() < VIEWPORT_WIDTH + 100 + SCROLL_X and self.y > SCROLL_Y - 100 and self.body:getY() < SCROLL_Y + VIEWPORT_HEIGHT + 100 then
+
+    if self.x > -100 + SCROLL_X and self.x < VIEWPORT_WIDTH + 100 + SCROLL_X and self.y > SCROLL_Y - 100 and self.y < SCROLL_Y + VIEWPORT_HEIGHT + 100 then
         self.onScreen = 1
     else
         self.onScreen = 0
@@ -52,11 +46,9 @@ end
 
 function Entity:render()
     if self.onScreen == 1 then 
-        x1,y1 = self.body:getWorldPoints(self.shape:getPoints())
-        love.graphics.draw(self.texture, self.quads[self.frame], x1 + (self.scaleX<0 and self.width or 0), y1, 0, self.scaleX, self.scaleY)
+        love.graphics.draw(self.texture, self.quads[self.frame], self.x + (self.scaleX<0 and self.width or 0), self.y, 0, self.scaleX, self.scaleY)
         self.state:render()
     end
-    
 end
 
 

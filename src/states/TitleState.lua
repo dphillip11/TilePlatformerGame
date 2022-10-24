@@ -22,6 +22,9 @@ function TitleState:init()
     -- initialise coordinates for gliding animation
     self.x = 0
     self.y = 0
+
+    load_level = Level(300,18)
+    loadTileMap(load_level, 'tilemap1.csv')
 end
 
 function TitleState:update(dt)
@@ -48,7 +51,7 @@ function TitleState:update(dt)
     end
     -- allow 'return' or 'space' to start
     if love.keyboard.wasPressed('return') or love.keyboard.wasPressed('space') then
-        gameState:change('play')
+        gameState:change('play', load_level)
     end
 end
 

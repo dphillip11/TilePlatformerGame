@@ -24,11 +24,14 @@ require 'src/components/Animation'
 require 'src/components/HeroInput'
 require 'src/components/ChasingAvoidingInput'
 
+-- physics callbacks
+require 'src/CollisionCallbacks'
 
 -- states
 require 'src/states/TitleState'
 require 'src/states/PlayState'
 require 'src/states/GameOverState'
+require 'src/states/LevelCreatorState'
 
 -- entityStates
 require 'src/entityStates/FallingState'

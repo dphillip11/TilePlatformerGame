@@ -9,14 +9,19 @@ function GameOverState:update(dt)
     self.timer = self.timer + dt
     
     if self.timer > self.period then
+        saveTileMap(self.level, 'tilemap1.csv')
         world:destroy()
-        love.physics.setMeter(64)
-        world = love.physics.newWorld(0, 1000, true)
-        world:setCallbacks( beginContact, endContact, preSolve, postSolve )
-        gameState:change('play')
+        gameState:change('play', self.level)
+    end
+    if  love.keyboard.wasPressed('m') then
+        gameState:change('levelMaker',self.level)
     end
 end
-    
+
+function GameOverState:enter(level)
+    self.level = level
+end
+
 
 function GameOverState:render()
     -- draw background field
