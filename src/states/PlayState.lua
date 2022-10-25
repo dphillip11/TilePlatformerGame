@@ -10,9 +10,9 @@ function PlayState:init()
     world = love.physics.newWorld(0, 1000, true)
     world:setCallbacks( beginContact, endContact, preSolve, postSolve )
 
-    level=Level(300, 18)
+    level=Level(100, 18)
     background = Background{}
-    hero = Hero(level)
+    hero = Hero()
     healthbar=PlayerHealth(6) 
 end
 
@@ -41,6 +41,10 @@ function PlayState:enter(new_level)
         level = new_level
     end
 
+    hero.x = new_level.heroX
+    hero.y = new_level.heroY
+    
+
     for i = 1, level.columns do
         for j = 1,level.rows do
             if level.tileMap[i][j] ~= 0 then
@@ -48,11 +52,13 @@ function PlayState:enter(new_level)
             end
         end
     end
-
+    
+    
     hero:addBody()
     for _, entity in pairs(level.entities) do
         entity:addBody()
     end
+    BACKGROUND_Y_OFFSET = (level.rows -18)*40
 end
 
 
@@ -64,8 +70,7 @@ function PlayState:render()
     love.graphics.printf("'m' to enter Level Maker",20,0,350, 'left')
     love.graphics.translate(math.floor(SCROLL_X), math.floor(SCROLL_Y))
     healthbar:render()
-    
-    
+        
 end
 
 

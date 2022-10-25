@@ -36,6 +36,10 @@ function loadLevel(filename)
                 table.insert(load_level.entities, Squirrel(values[2],values[3], values[4]))
             end
         end
+        if #values == 5 then
+            load_level.heroX = tonumber(values[3])
+            load_level.heroY = tonumber(values[5])
+        end
     end
     return load_level
 end
@@ -54,8 +58,11 @@ function saveLevel(lvl, filename)
     for i,ent in pairs(lvl.entities) do
         file:write(ent.type..","..ent.x..","..ent.y..","..ent.scaleY.."\n")
     end
+    file:write("heroPosition:, X:,"..lvl.heroX..", Y:,"..lvl.heroY.."\n")
     file:close()
 end
+
+
 
 
 

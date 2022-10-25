@@ -82,7 +82,7 @@ function TitleState:update(dt)
         selector = 3
         if mouseClicked() then
             if load_level then
-                gameState:change('levelMaker',load_level)
+                gameState:change('levelMaker', load_level)
             else
                 gameState:change('levelMaker')
             end
@@ -146,12 +146,6 @@ function TitleState:render()
     love.graphics.printf(text, 465, 450,350, 'center')
 end
 
--- allow click to start
-function love.mousepressed( x, y)
-    if x > VIEWPORT_WIDTH/2 - 140 and x < VIEWPORT_WIDTH/2 + 140 and y > VIEWPORT_HEIGHT/2 - 50 and y < VIEWPORT_HEIGHT/2 + 50 then
-        gameState:change('play')
-    end
-end
 
 function TitleState:enter()
     if not text then 

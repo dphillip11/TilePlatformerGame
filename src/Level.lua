@@ -1,11 +1,14 @@
 Level = Class{}
 
 
-function Level:init(columns, rows, world)
+function Level:init(columns, rows)
     -- 40 x 40 tiles, screen space is 32 x 18 tiles
     self.rows = rows
     self.columns = columns
-    self.tileMap, self.entities = LevelMaker(columns, rows)
+    self.tileMap= EmptyLevel(columns, rows)
+    self.entities={}
+    self.heroX=100
+    self.heroY=500
 end
 
 function Level:update(dt)

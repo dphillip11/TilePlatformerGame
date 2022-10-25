@@ -1,4 +1,4 @@
-function heroProperties(self)
+function heroProperties(self, x_,  y_)
     return self, {
 
     state = StateMachine{

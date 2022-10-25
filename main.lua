@@ -13,6 +13,7 @@ function love.load()
     -- keylogger
     love.keyboard.keysPressed = {}
     mouseLog = {}
+    mouseScrollLog=0
 
     -- states
     gameState = StateMachine({
@@ -37,6 +38,7 @@ function love.update(dt)
     gameState:update(dt)
     love.keyboard.keysPressed = {}
     mouseLog = {}
+    mouseScrollLog=0
 end
 
 
@@ -60,15 +62,28 @@ function love.keyboard.wasPressed(key)
     end
 end
 
-function love.mousepressed(x,y)
+function love.mousepressed(x,y, button)
     mouseLog['x']=x
     mouseLog['y']=y
+    mouseLog['button']=button
 end
 
 function mouseClicked()
+    if love.mouse.isDown(1) then
+        x,y = love.mouse.getPosition()
+        return x, y ,1
+    end
+    if love.mouse.isDown(2) then
+        x,y = love.mouse.getPosition()
+        return x, y, 2
+    end
     if mouseLog['x'] and mouseLog['y'] then
-        return mouseLog['x'],mouseLog['y']
+        return mouseLog['x'],mouseLog['y'],mouseLog['button']
     else
         return false
     end
+end
+
+function love.wheelmoved(x, y)
+    mouseScrollLog=y
 end
