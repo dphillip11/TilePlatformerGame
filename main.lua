@@ -3,7 +3,7 @@ require 'src/dependencies'
 function love.load()
      
      
-    
+    inPlay = 0
     math.randomseed(love.timer.getTime())
 
     -- screen setup

@@ -32,8 +32,12 @@ function  Squirrel:render()
 end
 
 function Squirrel:collide()
-    self.body:destroy()
-    self.active = 0
+    if self.active == 1 then
+        self.active = 0
+        particleX=self.x + 20
+        particleY=self.y + 20
+        psystem:emit(50)
+    end
 end
 
 

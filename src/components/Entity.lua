@@ -9,11 +9,18 @@ function Entity:init(def)
     self.type = def.type
     self.texture = def.texture or textures['tiles']
     self.quads = def.quads or quads
-    _,_,self.qWidth, self.qHeight = self.quads[1]:getViewport( )
     self.scaleX = def.scale or 1
     self.scaleY = def.scale or 1
-    self.height = self.qHeight*self.scaleY 
-    self.width = self.qWidth*self.scaleY 
+    if self.quads[1] then
+        _,_,self.qWidth, self.qHeight = self.quads[1]:getViewport( )
+        self.height = self.qHeight*self.scaleY
+        self.width = self.qWidth*self.scaleY
+    else
+        self.height = 40
+        self.width = 40
+    end
+ 
+    
     self.onScreen = 0
     self.state = def.state or 0 
     self.frame = 1

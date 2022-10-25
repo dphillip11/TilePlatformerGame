@@ -7,18 +7,16 @@ function Tile:init(indexX, indexY, type)
     self.y = (indexY - 1) * 40 
     self.type = type
     self.active = 1
-
-    -- -- physical properties
-    -- self.body = love.physics.newBody(world, self.x+20, self.y+20, 'static')
-    -- self.shape = love.physics.newRectangleShape(40,40)
-    -- self.fixture = love.physics.newFixture( self.body, self.shape)
-    -- self.fixture:setFriction(0)
-    -- self.fixture:setUserData(self)
 end
 
 function Tile:collide()
-    if self.type == '?' and self.active == 1 then 
-        -- table.insert(level.entities, Hedgehog(self.x, self.y-100) )
+    if self.type == '?' and self.active == 1 then
+        if math.random(0,10)>1 then
+            table.insert(level.entities, Heart(self.x+20, self.y-20))
+        else
+            table.insert(level.entities, Hedgehog(self.x+20, self.y-20, 0.07) )
+        end
+        
         self.active = 0  
     end
     if (self.type == 'spikes' or self.type == "bloodySpikes") then 

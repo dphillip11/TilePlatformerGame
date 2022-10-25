@@ -4,13 +4,7 @@ function EmptyLevel(columns, rows)
     for x = 1, columns do
         table.insert(tileMap, {})
         for y = 1, rows do
-            -- border
-            if x == 1 or x==columns or y == 1 or y==rows then
-                -- table.insert(tileMap[x], Tile(x,y,'tile'))
-                table.insert(tileMap[x], 0) 
-            else 
-                table.insert(tileMap[x], 0) 
-            end         
+            table.insert(tileMap[x], 0)   
         end
     end
 

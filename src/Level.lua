@@ -12,8 +12,22 @@ function Level:init(columns, rows)
 end
 
 function Level:update(dt)
-    for _, ent in pairs(self.entities) do
-        ent:update(dt)
+    if inPlay == 1 then
+        for i, ent in pairs(self.entities) do
+            if not ent.body then
+                ent:addBody()
+            end
+            if ent.active == 0 then
+                ent.body:destroy()
+                table.remove(self.entities, i)
+            else
+            ent:update(dt)
+            end
+        end
+    else
+        for i, ent in pairs(self.entities) do
+            ent:update(dt)
+        end
     end
 end
 

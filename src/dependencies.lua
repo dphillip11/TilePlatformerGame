@@ -7,9 +7,10 @@ utf8 = require("utf8")
 
 -- classes
 require 'src/Acorn'
-require 'src/Hero'
-require 'src/Hedgehog'
-require 'src/Squirrel'
+require 'src/entities/Hero'
+require 'src/entities/Hedgehog'
+require 'src/entities/Squirrel'
+require 'src/entities/Heart'
 require 'src/Background'
 require 'src/LevelMaker'
 require 'src/Level'
@@ -35,6 +36,7 @@ require 'src/states/GameOverState'
 require 'src/states/LevelCreatorState'
 
 -- entityStates
+require 'src/entityStates/heartStates/MovingState'
 require 'src/entityStates/FallingState'
 require 'src/entityStates/JumpingState'
 require 'src/entityStates/WalkingState'
@@ -45,6 +47,7 @@ require 'src/entityStates/squirrelStates/SqFallingState'
 require 'src/entityStates/squirrelStates/SqJumpingState'
 
 -- properties
+require 'src/properties/heartProperties'
 require 'src/properties/heroProperties'
 require 'src/properties/hedgehogProperties'
 require 'src/properties/squirrelProperties'
@@ -62,6 +65,7 @@ textures={
             [3]=love.graphics.newImage('graphics/junglebackground3.png')
         }
     },
+    ['burst']=love.graphics.newImage('graphics/burst.png'),
     ['grass'] = love.graphics.newImage('graphics/jungleground.png'),
     ['hero'] = love.graphics.newImage('graphics/hero.png'),
     ['squirrel'] = love.graphics.newImage('graphics/squirrel.png'),
@@ -80,6 +84,14 @@ textures={
         [7] = love.graphics.newImage('graphics/titleImages/flowers7.png'),
         [8] = love.graphics.newImage('graphics/titleImages/flowers8.png')}
 }
+
+-- particle effects
+psystem = love.graphics.newParticleSystem(textures['burst'], 100)
+psystem:setParticleLifetime(0.1, 0.5) -- Particles live at least 2s and at most 5s.
+psystem:setSizeVariation(1)
+psystem:setLinearAcceleration(-500, -500, 500, 500) -- Random movement in all directions.
+psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
+psystem:setSizes(0.4,0.3,0.2,0.1)
 
 -- fonts
 fonts = {
