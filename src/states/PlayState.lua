@@ -21,22 +21,21 @@ end
 
 function PlayState:update(dt)
 
-    if  love.keyboard.wasPressed('m') then
-        gameState:change('levelMaker',level)
-    end
-    world:update(dt)
-    level:update(dt)
-    hero:update(dt)
-    background:update(dt)
-    psystem:update(dt)
+        world:update(dt)
+        level:update(dt)
+        hero:update(dt)
+        background:update(dt)
+        psystem:update(dt)
 
-    SCROLL_X = math.max(0,hero.body:getX() - (VIEWPORT_WIDTH / 2) + (hero.width/2))
-    SCROLL_Y = math.min(level.rows * 40 - VIEWPORT_HEIGHT, hero.body:getY() - (VIEWPORT_HEIGHT / 2) + (hero.height/2))
-    
-    if healthbar.health == 0 or hero.body:getY() > level.rows * 40 then
-        inPlay = 0
-        gameState:change('gameover', level)
-    end
+        SCROLL_X = math.max(0,hero.body:getX() - (VIEWPORT_WIDTH / 2) + (hero.width/2))
+        SCROLL_Y = math.min(level.rows * 40 - VIEWPORT_HEIGHT, hero.body:getY() - (VIEWPORT_HEIGHT / 2) + (hero.height/2))
+        
+        if healthbar.health == 0 or hero.body:getY() > level.rows * 40 then
+            inPlay = 0
+            saveLevel(level,'temp')
+            level = loadLevel('temp')
+            gameState:change('gameover', level)
+        end
 
 end
 
@@ -72,9 +71,7 @@ function PlayState:render()
     love.graphics.translate(-math.floor(SCROLL_X), -math.floor(SCROLL_Y))
     level:render()
     love.graphics.draw(psystem,particleX,particleY) 
-    hero:render()
-    love.graphics.printf("'m' to enter Level Maker",20,0,350, 'left')
-    
+    hero:render()    
     love.graphics.translate(math.floor(SCROLL_X), math.floor(SCROLL_Y))
     healthbar:render()
 end

@@ -21,7 +21,7 @@ function Entity:init(def)
     end
  
     
-    self.onScreen = 0
+    self.onScreen = 1
     self.state = def.state or 0 
     self.frame = 1
 end

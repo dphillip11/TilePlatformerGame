@@ -147,7 +147,6 @@ function LevelCreatorState:update(dt)
         saveLevel(new_level, text)
         gameState:change('play', new_level)        
     end
-    new_level:update(dt)
     background:update(dt)
 end
 
@@ -155,9 +154,13 @@ end
 function LevelCreatorState:exit()
     love.graphics.setColor(1,1,1)
     love.keyboard.setTextInput(false)
+    if world and not world:isDestroyed( ) then 
+        world:destroy()
+    end
 end
 
 function LevelCreatorState:enter(level)
+    
     if level then
         new_level = level
     end
