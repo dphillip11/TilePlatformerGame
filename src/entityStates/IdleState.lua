@@ -3,6 +3,7 @@ IdleState = Class{__includes = BaseState}
 function IdleState:init(def)
     self.object = def.object
     self.animation = Animation{frames=def.frames}
+    self.object.currentState ='idle'
 end
 
 function IdleState:update(dt)

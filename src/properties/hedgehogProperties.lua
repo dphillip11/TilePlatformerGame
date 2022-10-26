@@ -7,7 +7,7 @@ function hedgehogProperties(self, x_, y_, scale_)
         ['jumping'] =  function() return JumpingState{object=self, frames={4,3,2,1}}end,
         ['falling'] =  function() return FallingState{object=self, frames={2}}end
     },
-    scale = scale_ or 0.2,
+    scale = scale_ or 0.125,
     texture = textures['hedgehog'],
     quads = hedgehogQuads,
     x = x_,

@@ -64,9 +64,7 @@ end
 function GameOverState:exit()
     love.graphics.setColor(1,1,1)
     love.keyboard.setTextInput(false)
-    if not world:isDestroyed( ) then 
-        world:destroy()
-    end
+
 end
 
 

@@ -2,6 +2,19 @@ PlayerHealth = Class()
 
 function PlayerHealth:init(health)
     self.health = health
+    self.hit=0
+    self.pause = 0
+    self.pauseInterval = 0.5
+end
+
+function PlayerHealth:update(dt)
+    if self.hit == 1 then
+        self.pause = self.pause + dt
+        if self.pause > self.pauseInterval then
+            self.hit = 0
+            self.pause = 0
+        end
+    end
 end
 
 function PlayerHealth:render()

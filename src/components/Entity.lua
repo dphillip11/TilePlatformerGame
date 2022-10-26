@@ -19,20 +19,63 @@ function Entity:init(def)
         self.height = 40
         self.width = 40
     end
+    if self.type == 'hedgehog' then
+        self.height = HEDGEHOG_HEIGHT * self.scaleY
+        self.width = HEDGEHOG_WIDTH * self.scaleY
+    end
  
-    
     self.onScreen = 1
     self.state = def.state or 0 
     self.frame = 1
 end
 
 function Entity:update(dt)
-    if self.body then
-        self.state:update(dt)        
-        self.body:setAngle(0)
-        self.dx, self.dy = self.body:getLinearVelocity()
-        self.x, self.y = self.body:getWorldPoints(self.shape:getPoints())
-    end
+
+    self.collisions = {}
+
+
+    -- if getEntityCollisions(self, level.entities) then
+    --     a=0
+    -- end
+
+    self.collisions['down'] = level:checkCollision(self, 'down')
+    if #self.collisions['down'] > 0 and self.dy >= 0 then
+        self.dy = 0
+        adjustPosition(self,'up')
+    else 
+        self.dy = self.dy + (GRAVITY*dt)        
+    end 
+
+    self.collisions['up'] = level:checkCollision(self, 'up')
+    if #self.collisions['up'] > 0 and self.dy <= 0 then
+        self.dy = 0
+        adjustPosition(self,'down')
+    end 
+    
+    self.collisions['left'] = level:checkCollision(self, 'left')
+    if #self.collisions['left'] > 0 and self.dx <= 0 then
+        if self.type == 'hero' or self.type == 'squirrel' then
+            self.dx = 0
+        else
+            self.dx = -self.dx
+        end
+        adjustPosition(self,'right')
+    end  
+
+    self.collisions['right'] = level:checkCollision(self, 'right')
+    if #self.collisions['right'] > 0 and self.dx >= 0 then
+        if self.type == 'hero' or self.type == 'squirrel' then
+            self.dx = 0
+        else
+            self.dx = -self.dx
+        end
+        adjustPosition(self,'left')
+    end 
+
+    self.x = math.min(level.columns*40, math.max(0,self.x + (self.dx * dt)))
+    self.y = self.y + (self.dy * dt)
+
+    self.state:update(dt)
 
     if self.onScreen then
         if self.dx < 0 then 
@@ -57,7 +100,6 @@ function Entity:render()
         self.state:render()
     end
 end
-
 
 
 

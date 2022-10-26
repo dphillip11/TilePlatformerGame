@@ -10,7 +10,6 @@ end
 
 function MovingState:update(dt)
     self.timer = self.timer + dt
-    self.object.body:setAngle(0)
     self.animation:update(dt)
     self.object.frame = self.animation:getFrame()
 

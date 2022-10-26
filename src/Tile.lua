@@ -19,7 +19,7 @@ function Tile:collide()
         
         self.active = 0  
     end
-    if (self.type == 'spikes' or self.type == "bloodySpikes") then 
+    if (self.type == 'spikes' or self.type == "bloodySpikes") and healthbar.hit == 0 then 
         self.type = 'bloodySpikes'
         healthbar.health = math.max(0, math.max(0,healthbar.health - 1))
     end
@@ -47,10 +47,3 @@ function Tile:render()
     end
 end
 
-function Tile:addBody()
-    self.body = love.physics.newBody(world, self.x+20, self.y+20, 'static')
-    self.shape = love.physics.newRectangleShape(40,40)
-    self.fixture = love.physics.newFixture( self.body, self.shape)
-    self.fixture:setFriction(0)
-    self.fixture:setUserData(self)
-end

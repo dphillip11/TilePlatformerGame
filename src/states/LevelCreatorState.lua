@@ -52,8 +52,9 @@ function LevelCreatorState:update(dt)
                         if ent.x < x + SCROLL_X and ent.x + ent.width > x + SCROLL_X and ent.y < y + SCROLL_Y and ent.y + ent.height > y + SCROLL_Y then
                             if new_level.entities[index].type ~= 'hedgehog' then 
                                 table.remove(new_level.entities,index)
-                                table.insert(new_level.entities, Hedgehog(x+SCROLL_X-20,y+SCROLL_Y-40,0.125))
+                                table.insert(new_level.entities, Hedgehog(x+SCROLL_X-20,y+SCROLL_Y-40,0.1))
                             else
+                                
                                 new_level.entities[index].x = x+SCROLL_X-20
                                 new_level.entities[index].y = y+SCROLL_Y-40
                             end
@@ -61,7 +62,7 @@ function LevelCreatorState:update(dt)
                         end
                     end
                     if entityClicked==0 then
-                        table.insert(new_level.entities, Hedgehog(x+SCROLL_X-20,y+SCROLL_Y-40,0.125))
+                        table.insert(new_level.entities, Hedgehog(x+SCROLL_X-20,y+SCROLL_Y-40,0.1))
                     else
                         entityClicked=0
                     end
@@ -154,9 +155,6 @@ end
 function LevelCreatorState:exit()
     love.graphics.setColor(1,1,1)
     love.keyboard.setTextInput(false)
-    if world and not world:isDestroyed( ) then 
-        world:destroy()
-    end
 end
 
 function LevelCreatorState:enter(level)

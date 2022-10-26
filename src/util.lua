@@ -5,6 +5,14 @@ function pointToIndex(x,y)
     return xIndex,yIndex
 end
 
+function TileIndex(vals)
+    indices = {}
+    for i,val in pairs(vals) do
+        indices[i] = math.floor(val/40) + 1
+    end
+    return indices
+end
+
 function indexToPoint(indexX,indexY)
     x = (indexX + 1) * 40
     y = (indexY + 1) * 40
@@ -61,6 +69,57 @@ function saveLevel(lvl, filename)
     file:write("heroPosition:, X:,"..lvl.heroX..", Y:,"..lvl.heroY.."\n")
     file:close()
 end
+
+function entityCollision(self, ent)
+    if self ~= ent and self.x + self.width > ent.x and self.x < ent.x + ent.width and self.y + self.height > ent.y and self.y < ent.y + ent.height then
+        return true
+    else
+        return false
+    end
+end
+
+function getEntityCollisions(self, ents)
+    -- return a list of collisions
+    cols={}
+    cols['left']={}
+    cols['right']={}
+    cols['up']={}
+    cols['down']={}
+
+    for i, ent in pairs(ents) do
+        self.x = self.x - 1
+        if self~=ent and entityCollision(self,ent) then
+            table.insert(cols['left'], ent)
+            self.x = ent.x + ent.width
+        end
+        self.x = self.x + 2
+        if self~=ent and entityCollision(self,ent) then
+            table.insert(cols['right'], ent)
+            self.x = ent.x - self.width - 2
+        end
+        self.x = self.x - 1
+        self.y = self.y - 1
+        if self~=ent and entityCollision(self,ent) then
+            table.insert(cols['up'], ent)
+            self.y = ent.y + ent.height
+        end
+        self.y = self.y + 2
+        if self~=ent and entityCollision(self,ent) then
+            table.insert(cols['down'], ent)
+            self.y = ent.y - self.height
+        end
+        self.y = self.y - 2
+    end
+    return cols
+end
+
+
+
+
+
+
+
+
 
 
 

@@ -14,19 +14,13 @@ end
 
 function Hedgehog:render()
     Entity.render(self)
+    love.graphics.print(text)
 end
 
 function Hedgehog:collide()
 end
 
-function Hedgehog:addBody()  
-    -- physical properties
-    self.body = love.physics.newBody( world, self.x - self.width/2, self.y- self.height/2, 'dynamic')
-    self.shape = love.physics.newRectangleShape(self.width-4,self.height-4)
-    self.fixture = love.physics.newFixture( self.body, self.shape)
-    self.fixture:setFriction(1)
-    self.fixture:setUserData(self)
-end
+
 
 
 

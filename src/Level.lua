@@ -14,11 +14,7 @@ end
 function Level:update(dt)
     if inPlay == 1 then
         for i, ent in pairs(self.entities) do
-            if not ent.body then
-                ent:addBody()
-            end
             if ent.active == 0 then
-                ent.body:destroy()
                 table.remove(self.entities, i)
             else
             ent:update(dt)
@@ -44,15 +40,14 @@ function Level:render()
     end
 end
 
-function Level:collision(object)
+function Level:checkCollision(object, direction)
     
     -- object falling
     collisions={}
-    collisions['down'] = {}
-    if object.dy >= 0 then
+    if direction == 'down' then
 
         -- assign indices to lower corners
-        local indices = TileIndex{object.y + object.height + 1, object.x + 2, object.x + object.width - 2}
+        local indices = TileIndex{object.y + object.height + 1, object.x + 3, object.x + object.width - 3}
 
         -- check y in range
         if indices[1] > 0 and indices[1] < level.rows + 1 then
@@ -60,18 +55,18 @@ function Level:collision(object)
 
                 -- check x values in range
                 if x > 0 and x < level.columns + 1 and level.tileMap[x][indices[1]] ~= 0 then
-                    table.insert(collisions['down'], level.tileMap[x][indices[1]])
+                    table.insert(collisions, level.tileMap[x][indices[1]])
                 end
             end
         end
-    end
-    collisions['up'] = {}
     
-    -- jumping
-    if object.dy <= 0 then
+    elseif direction == 'up' then
+    
+        -- jumping
+        
         -- assign indices to upper corners
 
-        local indices = TileIndex{object.y - 1, object.x + 2, object.x + object.width - 2}
+        local indices = TileIndex{object.y - 1, object.x + 3, object.x + object.width - 3}
 
         -- check y in range
         if indices[1] > 0 and indices[1] < level.rows + 1 then
@@ -79,17 +74,17 @@ function Level:collision(object)
 
                 -- check x values in range
                 if x > 0 and x < level.columns + 1 and level.tileMap[x][indices[1]] ~= 0 then
-                    table.insert(collisions['up'], level.tileMap[x][indices[1]])
+                    table.insert(collisions, level.tileMap[x][indices[1]])
                 end
             end
         end
-    end
-    collisions['left'] = {}
     
-    -- left
-    if object.dx <= 0 then
+    elseif direction == 'left' then
+    
+        -- left
+        
         -- assign indices to left edge
-        local indices = TileIndex{object.x - 1, object.y+3, object.y + object.height - 5}
+        local indices = TileIndex{object.x - 1, object.y+3, object.y + object.height - 3}
 
         -- check x in range
         if indices[1] > 0 and indices[1] < level.columns + 1 then
@@ -97,17 +92,16 @@ function Level:collision(object)
 
                 -- check y values in range
                 if y > 0 and y < level.rows + 1 and level.tileMap[indices[1]][y] ~= 0 then
-                    table.insert(collisions['left'], level.tileMap[indices[1]][y])
+                    table.insert(collisions, level.tileMap[indices[1]][y])
                 end
             end
         end
-    end
-    collisions['right'] = {}
+    elseif direction == 'right' then
     
-    -- right
-    if object.dx >= 0 then
+        -- right
+        
         -- assign indices to right edge
-        local indices = TileIndex{object.x + object.width + 1, object.y+3, object.y + object.height - 5}
+        local indices = TileIndex{object.x + object.width + 1, object.y+3, object.y + object.height - 3}
 
         -- check x in range
         if indices[1] > 0 and indices[1] < level.columns + 1 then
@@ -115,12 +109,28 @@ function Level:collision(object)
 
                 -- check y values in range
                 if y > 0 and y < level.rows + 1 and level.tileMap[indices[1]][y] ~= 0 then
-                    table.insert(collisions['right'], level.tileMap[indices[1]][y])
+                    table.insert(collisions, level.tileMap[indices[1]][y])
                 end
             end
         end
     end
     return collisions
+end
+
+-- adjust position in the direction opposite collision
+function adjustPosition(object, direction)
+    if direction == 'up' then
+        object.y = (40 * math.floor((object.y + object.height + 1)/40)) - object.height 
+    end
+    if direction == 'right' then
+        object.x = 40 * (math.floor((object.x - 1)/40) + 1)
+    end
+    if direction == 'left' then
+        object.x = 40 * (math.floor((object.x + object.width + 1)/40)) - object.width
+    end
+    if direction == 'down' then
+        object.y = 40 * (math.floor((object.y - 1)/40) + 1) 
+    end
 end
 
 

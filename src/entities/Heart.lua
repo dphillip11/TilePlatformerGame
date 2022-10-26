@@ -4,12 +4,13 @@ function Heart:init(x_, y_)
     Entity.init(heartProperties(self, x_, y_))
     self.state:change('moving')
     self.active=1
+    self.frame='heart'
+    self.dx = math.random(-100,100)
+    self.dy = math.random(0,-1000)
 end
 
 function Heart:update(dt)
-    if self.body and self.active==1 then
-        Entity.update(self, dt)
-    end
+    Entity.update(self, dt)
 end
 
 function Heart:render()
@@ -24,12 +25,3 @@ function Heart:collide()
 
 end
 
-function Heart:addBody()  
-    -- physical properties
-    self.body = love.physics.newBody( world, self.x - self.width/2, self.y- self.height/2, 'dynamic')
-    self.shape = love.physics.newRectangleShape(self.width-4,self.height-1)
-    self.fixture = love.physics.newFixture( self.body, self.shape)
-    self.fixture:setFriction(1)
-    self.fixture:setUserData(self)
-    self.body:setLinearVelocity(math.random(-200,200),math.random(0,-300))
-end
