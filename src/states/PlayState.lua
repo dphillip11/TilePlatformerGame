@@ -5,8 +5,13 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
     SCROLL_X = 0
     SCROLL_Y = 0
-    showSquirrelCount = 1
+    
     level=Level(100, 18)
+    if level.gameMode == 'squirrel' then
+        showSquirrelCount = 1
+    else
+        showSquirrelCount = 0
+    end
     background = Background{}
     hero = Hero()
     level.entities['hero']=hero
@@ -18,7 +23,9 @@ end
 
 function PlayState:update(dt)
 
-     
+    if showSquirrelCount == 1 and level.squirrelCount == 0 then
+        gameState:change('win', level.squirrelCount)
+    end
         level:update(dt)
         hero:update(dt)
         background:update(dt)
@@ -35,6 +42,8 @@ function PlayState:update(dt)
             gameState:change('gameover', level)
         end
 
+       
+
 end
 
 function PlayState:enter(new_level)
@@ -42,6 +51,16 @@ function PlayState:enter(new_level)
     if new_level then 
         level = new_level
     end
+    for _,ent in pairs(level.entities) do
+        if ent.type == 'bone' then
+            level.gameMode = 'bone'
+        end
+    end
+    if not level.gameMode then
+        level.gameMode = 'squirrel'
+        showSquirrelCount=1
+    end
+
 
     hero.x = level.heroX
     hero.y = level.heroY

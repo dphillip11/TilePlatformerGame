@@ -7,6 +7,7 @@ utf8 = require("utf8")
 
 -- classes
 require 'src/Acorn'
+require 'src/entities/Bone'
 require 'src/entities/Hero'
 require 'src/entities/Hedgehog'
 require 'src/entities/Squirrel'
@@ -34,6 +35,7 @@ require 'src/states/TitleState'
 require 'src/states/PlayState'
 require 'src/states/GameOverState'
 require 'src/states/LevelCreatorState'
+require 'src/states/WinState'
 
 -- entityStates
 require 'src/entityStates/heartStates/MovingState'
@@ -66,6 +68,9 @@ textures={
         }
     },
     ['burst']=love.graphics.newImage('graphics/burst.png'),
+    ['flameSkull']=love.graphics.newImage('graphics/flameskull.png'),
+    ['fluff']=love.graphics.newImage('graphics/fluff.png'),
+    ['bone']=love.graphics.newImage('graphics/bone.png'),
     ['grass'] = love.graphics.newImage('graphics/jungleground.png'),
     ['hero'] = love.graphics.newImage('graphics/hero.png'),
     ['squirrel'] = love.graphics.newImage('graphics/squirrel.png'),

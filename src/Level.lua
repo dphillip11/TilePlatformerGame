@@ -10,6 +10,8 @@ function Level:init(columns, rows)
     self.heroX=100
     self.heroY=500
     self.squirrelCount = 0
+ 
+
 end
 
 function Level:update(dt)
@@ -26,6 +28,7 @@ function Level:update(dt)
             ent:update(dt)
         end
     end
+
 end
 
 function Level:render()
@@ -43,6 +46,7 @@ function Level:render()
             self.squirrelCount = self.squirrelCount + 1
         end
     end
+
 end
 
 function Level:checkCollision(object, direction)

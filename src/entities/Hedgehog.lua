@@ -14,7 +14,6 @@ end
 
 function Hedgehog:render()
     Entity.render(self)
-    love.graphics.print(text)
 end
 
 function Hedgehog:collide()

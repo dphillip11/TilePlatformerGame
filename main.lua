@@ -20,7 +20,8 @@ function love.load()
         ['title'] = function() return TitleState() end,
         ['play'] = function() return PlayState() end,
         ['gameover'] = function() return GameOverState() end,
-        ['levelMaker'] = function() return LevelCreatorState() end
+        ['levelMaker'] = function() return LevelCreatorState() end,
+        ['win'] = function() return WinState() end
     })
     gameState:change('title')
 

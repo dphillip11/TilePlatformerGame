@@ -90,6 +90,26 @@ function LevelCreatorState:update(dt)
                         entityClicked=0
                     end
                 end
+                if selector == #types + 3 then
+                    for index,ent in pairs(new_level.entities) do
+                        if (ent.x < x + SCROLL_X) and (ent.x + ent.width > x + SCROLL_X )and (ent.y < y + SCROLL_Y )and (ent.y + ent.height > y + SCROLL_Y ) then
+                            if new_level.entities[index].type ~= 'bone' then 
+                                table.remove(new_level.entities,index)
+                                table.insert(new_level.entities, Bone(x+SCROLL_X-20,y+SCROLL_Y-40,1,1))
+                            else
+                                new_level.entities[index].x = x+SCROLL_X-20
+                                new_level.entities[index].y = y+SCROLL_Y-40
+                            end
+                            entityClicked=1
+                        end
+                    end
+                    -- if no entities are place then place one
+                    if entityClicked==0 then
+                        table.insert(new_level.entities, Bone(x+SCROLL_X-20,y+SCROLL_Y-40,1,1))
+                    else
+                        entityClicked=0
+                    end
+                end
                 -- empty space
                 if selector > #types + 2 then
                     new_level.tileMap[i][j] = 0
@@ -105,7 +125,7 @@ function LevelCreatorState:update(dt)
             end
         else
             -- icon selectors, seven so far
-            if x < 280 then
+            if x < 320 then
             selector = math.floor(x/40) + 1
             end
             -- increase length
@@ -178,6 +198,7 @@ function LevelCreatorState:render()
     for i, t in pairs(types) do
         love.graphics.draw(textures['tiles'], quads[t], (i - 1)* 40)
     end
+    love.graphics.draw(textures['bone'], 280,0,0,0.5,0.5)
     love.graphics.draw(textures['hedgehog'], hedgehogQuads[3], (#types)* 40, -10, 0.1,0.1)
     love.graphics.draw(textures['squirrel'], squirrelQuads[3], (#types+1)* 40, -10, 0.1,0.1)
     love.graphics.print("length:"..new_level.columns,500, 10)

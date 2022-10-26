@@ -65,7 +65,8 @@ function TitleState:update(dt)
             if load_level then
                 gameState:change('play', load_level)
             else
-                gameState:change('play')
+                level = loadLevel('sl')
+                gameState:change('play', level)
             end
         end
     elseif x > 465 and x < 465 + 350 and y > 200 and y < 400 then

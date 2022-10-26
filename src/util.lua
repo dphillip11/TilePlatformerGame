@@ -43,6 +43,9 @@ function loadLevel(filename)
             if values[1]=='squirrel' then
                 table.insert(load_level.entities, Squirrel(values[2],values[3], values[4]))
             end
+            if values[1]=='bone' then
+                table.insert(load_level.entities, Bone(values[2],values[3]))
+            end
         end
         if #values == 5 then
             load_level.heroX = tonumber(values[3])
