@@ -87,28 +87,37 @@ function getEntityCollisions(self, ents)
     cols['down']={}
 
     for i, ent in pairs(ents) do
-        self.x = self.x - 1
+        self.x = self.x - 4
         if self~=ent and entityCollision(self,ent) then
             table.insert(cols['left'], ent)
-            self.x = ent.x + ent.width
+            if self.type~='hero' then
+                self.x = ent.x + ent.width
+            end
         end
-        self.x = self.x + 2
+        self.x = self.x + 8
         if self~=ent and entityCollision(self,ent) then
             table.insert(cols['right'], ent)
-            self.x = ent.x - self.width - 2
+            if self.type~='hero' then
+                self.x = ent.x - self.width
+            end
         end
-        self.x = self.x - 1
+        self.x = self.x - 4
+        
         self.y = self.y - 1
         if self~=ent and entityCollision(self,ent) then
             table.insert(cols['up'], ent)
-            self.y = ent.y + ent.height
+            if self.type~='hero' then
+                self.y = ent.y + ent.height
+            end
         end
         self.y = self.y + 2
         if self~=ent and entityCollision(self,ent) then
             table.insert(cols['down'], ent)
-            self.y = ent.y - self.height
+            if self.type~='hero' then
+                self.y = ent.y - self.height
+            end
         end
-        self.y = self.y - 2
+        self.y = self.y - 1
     end
     return cols
 end

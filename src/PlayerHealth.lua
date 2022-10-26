@@ -9,6 +9,9 @@ end
 
 function PlayerHealth:update(dt)
     if self.hit == 1 then
+        if self.pause == 0 then 
+            self.health = math.max(0, self.health - 1)
+        end
         self.pause = self.pause + dt
         if self.pause > self.pauseInterval then
             self.hit = 0

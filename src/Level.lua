@@ -9,6 +9,7 @@ function Level:init(columns, rows)
     self.entities={}
     self.heroX=100
     self.heroY=500
+    self.squirrelCount = 0
 end
 
 function Level:update(dt)
@@ -35,8 +36,12 @@ function Level:render()
             end
         end
     end
+    self.squirrelCount = 0
     for _, ent in pairs(self.entities) do
         ent:render()
+        if ent.type == 'squirrel' then
+            self.squirrelCount = self.squirrelCount + 1
+        end
     end
 end
 

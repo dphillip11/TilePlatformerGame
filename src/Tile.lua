@@ -19,12 +19,11 @@ function Tile:collide()
         
         self.active = 0  
     end
-    if (self.type == 'spikes' or self.type == "bloodySpikes") and healthbar.hit == 0 then 
+    if (self.type == 'spikes' or self.type == "bloodySpikes")then 
         self.type = 'bloodySpikes'
-        healthbar.health = math.max(0, math.max(0,healthbar.health - 1))
+        healthbar.hit = 1
     end
     if self.type == 'breakBlock3' then
-        level.tileMap[self.xIndex][self.yIndex].body:destroy()
         level.tileMap[self.xIndex][self.yIndex] = 0
     end
     if self.type == 'breakBlock2' then 

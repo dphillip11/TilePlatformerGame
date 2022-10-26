@@ -18,6 +18,8 @@ function Hedgehog:render()
 end
 
 function Hedgehog:collide()
+    healthbar.hit = 1
+    self.x = self.x - (self.dx/2)
 end
 
 

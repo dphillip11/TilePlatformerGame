@@ -11,9 +11,12 @@ function FallingState:update(dt)
 
     if self.object.type == 'hero' and self.object.collisions['down'] then
         for _, tile in pairs(self.object.collisions['down']) do
-            if tile.type == 'spikes' or tile.type == 'bloodySpikes' or tile.type == 'breakBlock1' or tile.type == 'breakBlock2'or tile.type == 'breakBlock3' then
-                tile:collide()
+            if tile.type == 'spikes' or tile.type == 'bloodySpikes' then
                 healthbar.hit = 1
+                tile:collide()
+            end
+            if tile.type == 'breakBlock1' or tile.type == 'breakBlock2'or tile.type == 'breakBlock3' then
+                tile:collide()
             end
         end
     end

@@ -19,10 +19,6 @@ function Entity:init(def)
         self.height = 40
         self.width = 40
     end
-    if self.type == 'hedgehog' then
-        self.height = HEDGEHOG_HEIGHT * self.scaleY
-        self.width = HEDGEHOG_WIDTH * self.scaleY
-    end
  
     self.onScreen = 1
     self.state = def.state or 0 
@@ -34,9 +30,7 @@ function Entity:update(dt)
     self.collisions = {}
 
 
-    -- if getEntityCollisions(self, level.entities) then
-    --     a=0
-    -- end
+    self.entityCollisions = getEntityCollisions(self, level.entities)
 
     self.collisions['down'] = level:checkCollision(self, 'down')
     if #self.collisions['down'] > 0 and self.dy >= 0 then
@@ -90,6 +84,10 @@ function Entity:update(dt)
         self.onScreen = 1
     else
         self.onScreen = 0
+    end
+
+    if self.x < 0 - self.width or self.x > level.columns * 40 or self.y > level.rows * 40 then
+        self.active = 0
     end
 end
 

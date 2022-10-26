@@ -15,7 +15,7 @@ function ChasingAvoidingInput:update(dt)
         end
         if self.chasing == 0 then
             -- avoid holes
-            xi,yi = pointToIndex(self.object.x + (self.object.dx/2), self.object.y+ self.object.height)
+            xi,yi = pointToIndex(self.object.x + (self.object.dx/2), self.object.y + 40)
             yi = math.min(yi + 1,level.rows) 
             if level.tileMap[xi] and level.tileMap[xi][yi] == 0 then
                 self.object.dx = - self.object.dx

@@ -5,10 +5,11 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
     SCROLL_X = 0
     SCROLL_Y = 0
-
+    showSquirrelCount = 1
     level=Level(100, 18)
     background = Background{}
     hero = Hero()
+    level.entities['hero']=hero
     healthbar=PlayerHealth(6)
     particleX=0
     particleY=0
@@ -57,6 +58,9 @@ function PlayState:render()
     hero:render()    
     love.graphics.translate(math.floor(SCROLL_X), math.floor(SCROLL_Y))
     healthbar:render()
+    if showSquirrelCount == 1 then
+        love.graphics.print("squirrels:"..level.squirrelCount)
+    end
 end
 
 

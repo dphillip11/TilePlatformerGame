@@ -10,7 +10,18 @@ end
 function Hero:update(dt)
     self.input:update(dt)
     Entity.update(self, dt)
-    
+    for i,ent in pairs(self.entityCollisions['up']) do
+        ent:collide()  
+    end
+    for i,ent in pairs(self.entityCollisions['down']) do
+        ent:collide()
+    end
+    for i,ent in pairs(self.entityCollisions['left']) do
+        ent:collide()
+    end
+    for i,ent in pairs(self.entityCollisions['right']) do
+        ent:collide()
+    end
 end
 
 function Hero:render()

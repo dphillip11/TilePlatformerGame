@@ -14,7 +14,7 @@ function HeroInput:update(dt)
         self.object.dx = 0
     end
     -- if math.abs(self.object.dy)<5 and 
-    if love.keyboard.keysPressed['up'] == true or love.keyboard.keysPressed['space'] == true then 
+    if (love.keyboard.keysPressed['up'] == true or love.keyboard.keysPressed['space'] == true) and (self.object.currentState == 'walking' or self.object.currentState == 'idle') then 
         self.object.dy = -750
     end
     

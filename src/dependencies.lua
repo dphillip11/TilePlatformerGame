@@ -137,6 +137,3 @@ squirrelQuads={
     [4] = love.graphics.newQuad(1521, 0, 507, 571, textures['squirrel']),
 }
 
-_,_,SQUIRREL_WIDTH, SQUIRREL_HEIGHT = squirrelQuads[1]:getViewport( )
-_,_,HEDGEHOG_WIDTH, HEDGEHOG_HEIGHT = hedgehogQuads[1]:getViewport( )
-    
