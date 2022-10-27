@@ -23,14 +23,12 @@ function Entity:init(def)
     self.onScreen = 1
     self.state = def.state or 0 
     self.frame = 1
+    self.entityCollisions = {}
 end
 
 function Entity:update(dt)
 
     self.collisions = {}
-
-
-    self.entityCollisions = getEntityCollisions(self, level.entities)
 
     self.collisions['down'] = level:checkCollision(self, 'down')
     if #self.collisions['down'] > 0 and self.dy >= 0 then
@@ -65,6 +63,8 @@ function Entity:update(dt)
         end
         adjustPosition(self,'left')
     end 
+
+    self.entityCollisions = getEntityCollisions(self, level.entities)
 
     self.x = math.min(level.columns*40, math.max(0,self.x + (self.dx * dt)))
     self.y = self.y + (self.dy * dt)

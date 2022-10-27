@@ -90,40 +90,74 @@ function getEntityCollisions(self, ents)
     cols['down']={}
 
     for i, ent in pairs(ents) do
-        self.x = self.x - 4
-        if self~=ent and entityCollision(self,ent) then
-            table.insert(cols['left'], ent)
-            if self.type~='hero' then
-                self.x = ent.x + ent.width
+        -- move left, check collision
+  
+            self.x = self.x - 2
+
+            if self~=ent and entityCollision(self,ent) then
+                table.insert(cols['left'], ent)
+                if #self.collisions['right'] < 1 and self.dx < 0 and self.x > ent.x then
+                    self.x = ent.x + ent.width
+                else
+                    self.x = self.x + 2
+                end
+            else
+                self.x = self.x + 2
+            end
+
+       
+            -- move right, check collision
+            self.x = self.x + 2
+
+            if self~=ent and entityCollision(self,ent) then
+                table.insert(cols['right'], ent)
+                if #self.collisions['left'] < 1 and self.dx > 0 and self.x  < ent.x then
+                    self.x = ent.x - self.width
+                else
+                    self.x = self.x - 2
+                end
+            else
+                self.x = self.x - 2
+            end
+        -- end
+
+        -- move up, check collision
+
+        if self.dy < 0 then
+            self.y = self.y - 2
+
+            if self~=ent and entityCollision(self,ent) then
+                table.insert(cols['up'], ent)
+                if #self.collisions['down'] < 1 and self.dy < 0 and self.y  > ent.y then
+                    self.y = ent.y + ent.height
+                else
+                    self.y = self.y + 2
+                end
+            else
+                self.y = self.y + 2
             end
         end
-        self.x = self.x + 8
-        if self~=ent and entityCollision(self,ent) then
-            table.insert(cols['right'], ent)
-            if self.type~='hero' then
-                self.x = ent.x - self.width
+
+        -- move down, check collision
+        if self.dy > 0 then
+            self.y = self.y + 2
+
+            if self~=ent and entityCollision(self,ent) then
+                table.insert(cols['down'], ent)
+                if #self.collisions['up'] < 1 and self.dy > 0 and self.y  < ent.y then
+                    self.y = ent.y - self.height
+                    self.dy = 0
+                else            
+                    self.y = self.y - 2   
+                end
+            else            
+                self.y = self.y - 2   
             end
         end
-        self.x = self.x - 4
-        
-        self.y = self.y - 1
-        if self~=ent and entityCollision(self,ent) then
-            table.insert(cols['up'], ent)
-            if self.type~='hero' then
-                self.y = ent.y + ent.height
-            end
-        end
-        self.y = self.y + 2
-        if self~=ent and entityCollision(self,ent) then
-            table.insert(cols['down'], ent)
-            if self.type~='hero' then
-                self.y = ent.y - self.height
-            end
-        end
-        self.y = self.y - 1
     end
     return cols
 end
+
 
 
 

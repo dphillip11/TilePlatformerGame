@@ -13,11 +13,10 @@ function PlayState:init()
         showSquirrelCount = 0
     end
     background = Background{}
-    hero = Hero()
-    level.entities['hero']=hero
     healthbar=PlayerHealth(6)
     particleX=0
     particleY=0
+    hero = Hero()
 end
 
 
@@ -27,7 +26,6 @@ function PlayState:update(dt)
         gameState:change('win', level.squirrelCount)
     end
         level:update(dt)
-        hero:update(dt)
         background:update(dt)
         psystem:update(dt)
         healthbar:update(dt)
@@ -64,6 +62,7 @@ function PlayState:enter(new_level)
 
     hero.x = level.heroX
     hero.y = level.heroY
+    table.insert(level.entities, hero)
     
     BACKGROUND_Y_OFFSET = (level.rows -18)*40
 end
@@ -73,8 +72,7 @@ function PlayState:render()
     background:render()
     love.graphics.translate(-math.floor(SCROLL_X), -math.floor(SCROLL_Y))
     level:render()
-    love.graphics.draw(psystem,particleX,particleY) 
-    hero:render()    
+    love.graphics.draw(psystem,particleX,particleY)    
     love.graphics.translate(math.floor(SCROLL_X), math.floor(SCROLL_Y))
     healthbar:render()
     if showSquirrelCount == 1 then

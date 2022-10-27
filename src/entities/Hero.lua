@@ -11,7 +11,11 @@ function Hero:update(dt)
     self.input:update(dt)
     Entity.update(self, dt)
     for i,ent in pairs(self.entityCollisions['up']) do
-        ent:collide()  
+        if ent.type == 'hedgehog' then
+            ent:collide(1)  
+        else
+            ent:collide()
+        end
     end
     for i,ent in pairs(self.entityCollisions['down']) do
         ent:collide()
