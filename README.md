@@ -13,6 +13,8 @@ I decided having the option to traverse both upwards and forwards might lead to 
 
 https://user-images.githubusercontent.com/109744044/198512651-694e51b2-eda7-484e-80b9-900d7293ff06.mp4
 
+At the moment I am implementing two game modes, kill the squirrels(although there will be a reckoning) and find the bone but I am considering ways to encourage players to explore the level more, similar to a key and lock but more suitable for Portos, collect the toys to open the door?
+
 
 
 ![image](screenshot.png "screenshot")
