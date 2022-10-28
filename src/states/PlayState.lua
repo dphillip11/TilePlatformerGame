@@ -54,10 +54,10 @@ function PlayState:enter(new_level)
             level.gameMode = 'bone'
         end
     end
-    if not level.gameMode then
-        level.gameMode = 'squirrel'
-        showSquirrelCount=1
-    end
+    -- if not level.gameMode then
+    --     level.gameMode = 'squirrel'
+    --     showSquirrelCount=1
+    -- end
 
 
     hero.x = level.heroX
