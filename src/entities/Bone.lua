@@ -20,7 +20,8 @@ end
 function Bone:render()
     love.graphics.draw(textures['bone'], self.x, self.y)
     if self.found == 0 then
-        level = loadLevel(3)
-        gameState:change('play', level)
+        -- level = loadLevel(3)
+        -- gameState:change('play', level)
+        gameState:change('title', level)
     end
 end

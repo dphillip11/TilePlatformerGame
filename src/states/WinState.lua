@@ -14,8 +14,9 @@ end
 function WinState:update(dt)
     explosion:update(dt)
     if love.keyboard.wasPressed("return") then
-        level = loadLevel('1')
-        gameState:change('play', level)
+        -- level = loadLevel('1')
+        -- gameState:change('play', level)
+        gameState:change('title', level)
     end   
 end
 

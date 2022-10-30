@@ -65,7 +65,7 @@ function TitleState:update(dt)
             if load_level then
                 gameState:change('play', load_level)
             else
-                level = loadLevel('sl')
+                level = loadLevel('Levels/SquirrelLevel')
                 gameState:change('play', level)
             end
         end
@@ -150,7 +150,7 @@ end
 
 function TitleState:enter()
     if not text then 
-        text = 'level.csv'
+        text = 'YourLevelName'
     end
     love.keyboard.setTextInput(true, 465, 450, 350, 50 )
     love.keyboard.setKeyRepeat(true)
