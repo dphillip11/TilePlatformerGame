@@ -15,9 +15,6 @@ end
 
 function Hedgehog:render()
     Entity.render(self)
-    if self.entityCollisions['right'] then
-        love.graphics.print(#self.entityCollisions['right'])
-    end
 end
 
 function Hedgehog:collide(jumpFlag)
