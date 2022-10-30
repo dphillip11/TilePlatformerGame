@@ -67,6 +67,10 @@ function PlayState:enter(new_level)
     BACKGROUND_Y_OFFSET = (level.rows -18)*40
 end
 
+function PlayState:exit()
+    hero = nil 
+end
+
 
 function PlayState:render()
     background:render()

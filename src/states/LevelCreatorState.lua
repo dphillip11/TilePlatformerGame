@@ -195,6 +195,12 @@ end
 function LevelCreatorState:render()
     
     background:render()
+    love.graphics.setColor(1,1,1,1)
+    love.graphics.translate(-math.floor(SCROLL_X), -math.floor(SCROLL_Y))
+    new_level:render()
+    hero1:render()
+    love.graphics.printf("NAME: "..text.."\n(type to change)\n".."ARROWS to move camera\n".."ENTER to SAVE\nclick icons to SELECT\nright-click to REMOVE\nDIMENSIONS are in tiles",20,50,350, 'left')
+    love.graphics.translate(math.floor(SCROLL_X), math.floor(SCROLL_Y))
     for i, t in pairs(types) do
         love.graphics.draw(textures['tiles'], quads[t], (i - 1)* 40)
     end
@@ -208,11 +214,8 @@ function LevelCreatorState:render()
     love.graphics.rectangle( 'fill', VIEWPORT_WIDTH-120, 10, 110, 70, 10,10)
     love.graphics.setColor(0,0,0,1)
     love.graphics.printf("clear level", VIEWPORT_WIDTH-100, 10, 90)
-    love.graphics.translate(-math.floor(SCROLL_X), -math.floor(SCROLL_Y))
     love.graphics.setColor(1,1,1,1)
-    new_level:render()
-    hero1:render()
-    love.graphics.printf("NAME: "..text.."\n(type to change)\n".."ARROWS to move camera\n".."ENTER to SAVE\nclick icons to SELECT\nright-click to REMOVE\nDIMENSIONS are in tiles",20,50,350, 'left')
+
    
 end
 
