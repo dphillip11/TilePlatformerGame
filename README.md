@@ -2,7 +2,7 @@
 
 ## A mario style side scrolling platformer using Love2D
 
-Portos is my dog, he's crazy, really, like certifiably. He will chase just about anything, frisbees, cats, deers and to the limits of my patience he never tires of doing so. This is exactly the reason why he belongs in a video game!
+Portos is my dog, he's crazy, really, like certifiably. He will chase just about anything, frisbees, cats, deer and to the limits of my patience he never tires of doing so. This is exactly the reason why he belongs in a video game!
 
 A work in progress, join Portos on his quest to retrieve the bones. I have created a level maker and hope to develop the game to follow a narrative and include boss fights.
 
