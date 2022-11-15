@@ -6,7 +6,7 @@ Portos is my dog, he's crazy, really, like certifiably. He will chase just about
 
 A work in progress, join Portos on his quest to retrieve the bones. I have created a level maker and hope to develop the game to follow a narrative and include boss fights.
 
-It is easy to create, test and save levels locally using the levelmaker, it would be nice to have an easy way to share save files too to encourage social interaction withtin the game.
+It is easy to create, test and save levels locally using the levelmaker, it would be nice to have an easy way to share save files too and encourage social interaction within the game.
 
 https://user-images.githubusercontent.com/109744044/198512636-62897273-da5e-4a44-863e-ee1e7830795e.mp4
 
